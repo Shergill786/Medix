@@ -508,7 +508,7 @@ const Hospitals = {
             <span style="font-size:0.8125rem;color:var(--accent-dark);font-weight:600">
               🟢 ${h.doctorsAvailable} doctors available
             </span>
-            <a href="appointments.html" class="btn btn-primary btn-sm">View Doctors →</a>
+            <a href="../appointments.html" class="btn btn-primary btn-sm">Book Appointment →</a>
           </div>
         </div>
       </div>
