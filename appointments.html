@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book Appointment – Medix Healthcare</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/components.css" />
+</head>
+<body>
+
+  <!-- ── Navbar ── -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-logo">
+        <div class="logo-icon">⚕️</div>
+        Medix
+      </a>
+      <ul class="navbar-nav">
+        <li><a href="home.html">🏠 Home</a></li>
+        <li><a href="hospitals.html">🏥 Hospitals</a></li>
+        <li><a href="appointments.html" class="active">📅 Appointments</a></li>
+        <li><a href="emergency.html">🚨 Emergency</a></li>
+        <li><a href="dashboard.html">📊 Dashboard</a></li>
+        <li><a href="reminders.html">💊 Reminders</a></li>
+      </ul>
+      <div class="navbar-actions">
+        <button class="btn btn-sm btn-primary" onclick="window.location.href='emergency.html'">🚨 SOS</button>
+        <div class="avatar">A</div>
+        <button class="menu-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── Page Header ── -->
+  <header class="page-header">
+    <div class="container">
+      <span class="section-label" style="background:rgba(255,255,255,0.15);color:white">📅 Appointments</span>
+      <h1 class="h1" style="color:white;margin-top:12px">Book Your Doctor Visit</h1>
+      <p style="color:rgba(255,255,255,0.75)">Choose a specialist, pick a time slot, and confirm your appointment instantly</p>
+    </div>
+  </header>
+  
+  <!-- ── Filters ── -->
+  <section class="section-sm">
+    <div class="container">
+      <div class="card card-sm" style="margin-top:calc(-1 * var(--space-2xl));position:relative;z-index:10">
+        <div class="flex gap-md" style="flex-wrap:wrap;align-items:center">
+          <div class="input-wrapper" style="flex:1;min-width:200px">
+            <span class="input-icon">🔍</span>
+            <input type="search" class="form-control" id="doctorSearch" placeholder="Search doctors…" />
+          </div>
+
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <button class="filter-tag specialty-filter active" data-filter="all">All</button>
+            <button class="filter-tag specialty-filter" data-filter="Cardiology">❤️ Cardiology</button>
+            <button class="filter-tag specialty-filter" data-filter="Dermatology">🩺 Dermatology</button>
+            <button class="filter-tag specialty-filter" data-filter="Orthopedics">🦴 Orthopedics</button>
+            <button class="filter-tag specialty-filter" data-filter="Neurology">🧠 Neurology</button>
+            <button class="filter-tag specialty-filter" data-filter="Pediatrics">👶 Pediatrics</button>
+            <button class="filter-tag specialty-filter" data-filter="General Medicine">💊 General</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Doctors List ── -->
+  <section class="section-sm" style="padding-bottom:var(--space-3xl)">
+    <div class="container">
+      <div class="flex justify-between items-center" style="margin-bottom:var(--space-xl)">
+        <div>
+          <h2 class="h3">Available Doctors</h2>
+          <p class="text-sm text-secondary">Select a time slot and click "Book Now"</p>
+        </div>
+        <a href="dashboard.html" class="btn btn-outline btn-sm">📋 My Appointments</a>
+      </div>
+
+      <div id="doctorsList" style="display:flex;flex-direction:column;gap:var(--space-lg)">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Booking Modal ── -->
+  <div class="modal-overlay" id="bookingModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="h4" id="modalTitle">✅ Confirm Appointment</h3>
+        <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+      </div>
+
+      <!-- Doctor Summary -->
+      <div class="card card-sm" style="background:var(--primary-light);border:none;margin-bottom:var(--space-xl)">
+        <div style="display:flex;align-items:center;gap:12px">
+          <div style="font-size:2rem">👨‍⚕️</div>
+          <div>
+            <div style="font-weight:700;font-size:1rem" id="modalDoctorName">—</div>
+            <div style="font-size:0.8375rem;color:var(--primary)" id="modalSpecialty">—</div>
+            <div style="font-size:0.8rem;color:var(--text-secondary)" id="modalHospital">—</div>
+          </div>
+          <div style="margin-left:auto;text-align:right">
+            <div style="font-weight:700;color:var(--primary)" id="modalTime">—</div>
+            <div style="font-size:0.75rem;color:var(--text-muted)">Selected slot</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Date Selection -->
+      <div class="form-group">
+        <label class="form-label" for="bookingDate">📅 Appointment Date</label>
+        <input type="date" id="bookingDate" class="form-control" />
+      </div>
+
+      <!-- Reason -->
+      <div class="form-group">
+        <label class="form-label" for="bookingReason">📝 Reason for Visit (optional)</label>
+        <input type="text" id="bookingReason" class="form-control" placeholder="e.g. Routine checkup, Follow-up…" />
+      </div>
+
+      <div style="display:flex;gap:12px">
+        <button class="btn btn-outline btn-full" id="modalClose2" onclick="document.getElementById('bookingModal').classList.remove('open')">
+          Cancel
+        </button>
+        <button class="btn btn-primary btn-full" id="confirmBooking">
+          ✅ Confirm Booking
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom" style="justify-content:center">
+        <span>© 2025 Medix Healthcare. All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      Booking.init();
+
+      // Live doctor search
+      const searchInput = document.getElementById('doctorSearch');
+      searchInput?.addEventListener('input', Utils.debounce(() => {
+        const q = searchInput.value.toLowerCase();
+        document.querySelectorAll('.doctor-card').forEach(card => {
+          const text = card.textContent.toLowerCase();
+          card.style.display = text.includes(q) ? '' : 'none';
+        });
+      }, 250));
+    });
+  </script>
+</body>
+</html>

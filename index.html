@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Medix – Your Personal Healthcare Companion</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--grad-hero);
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .splash {
+      text-align: center;
+      animation: fadeInUp 0.6s ease;
+    }
+
+    .splash-logo {
+      width: 80px;
+      height: 80px;
+      background: white;
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      margin: 0 auto 20px;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.2);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .splash h1 {
+      color: white;
+      font-size: 3rem;
+      font-family: 'Sora', sans-serif;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .splash p {
+      color: rgba(255,255,255,0.75);
+      margin-top: 8px;
+      font-size: 1.125rem;
+    }
+
+    .splash-actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .splash-btn {
+      padding: 14px 32px;
+      border-radius: 9999px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      border: none;
+      transition: all 0.3s ease;
+      font-family: 'DM Sans', sans-serif;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-white {
+      background: white;
+      color: #1a6fff;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    }
+
+    .btn-white:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.25);
+    }
+
+    .btn-outline-white {
+      background: transparent;
+      color: white;
+      border: 2px solid rgba(255,255,255,0.4);
+    }
+
+    .btn-outline-white:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: white;
+    }
+
+    .features-row {
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: rgba(255,255,255,0.8);
+      font-size: 0.9rem;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .feature-item span:first-child { font-size: 1.25rem; }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 16px 48px rgba(0,0,0,0.2); }
+      50% { transform: scale(1.04); box-shadow: 0 24px 56px rgba(0,0,0,0.3); }
+    }
+  </style>
+</head>
+<body>
+  <div class="splash">
+    <div class="splash-logo">⚕️</div>
+    <h1>Medix</h1>
+    <p>Your complete personal healthcare companion</p>
+  </div>
+
+  <div class="splash-actions">
+    <a href="login.html" class="splash-btn btn-white">🔐 Sign In</a>
+    <a href="home.html"  class="splash-btn btn-outline-white">🏠 Demo Home</a>
+  </div>
+
+  <div class="features-row">
+    <div class="feature-item"><span>🏥</span><span>Find Hospitals</span></div>
+    <div class="feature-item"><span>📅</span><span>Book Appointments</span></div>
+    <div class="feature-item"><span>🚨</span><span>Emergency Care</span></div>
+    <div class="feature-item"><span>💊</span><span>Medicine Reminders</span></div>
+  </div>
+</body>
+</html>

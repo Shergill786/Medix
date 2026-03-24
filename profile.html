@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Profile – Medix Healthcare</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <style>
+    /* Profile Specific Styles */
+    .profile-header {
+      background: var(--grad-hero);
+      color: white;
+      padding: var(--space-3xl) 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .profile-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      margin-bottom: var(--space-lg);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .profile-info {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    .profile-avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: var(--grad-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      box-shadow: var(--shadow-lg);
+      border: 4px solid white;
+    }
+
+    .profile-details h2 {
+      margin-bottom: var(--space-sm);
+      color: var(--text-primary);
+    }
+
+    .profile-details p {
+      color: var(--text-secondary);
+      margin-bottom: var(--space-xs);
+      font-size: 0.95rem;
+    }
+
+    .profile-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      background: var(--accent-light);
+      color: var(--accent-dark);
+      padding: 6px 12px;
+      border-radius: var(--radius-full);
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-top: var(--space-sm);
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--space-lg);
+      margin-top: var(--space-lg);
+    }
+
+    .info-item {
+      background: var(--bg);
+      padding: var(--space-md);
+      border-radius: var(--radius-md);
+      border-left: 4px solid var(--primary);
+    }
+
+    .info-item-label {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+      margin-bottom: var(--space-xs);
+    }
+
+    .info-item-value {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: var(--space-lg);
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    .tabs {
+      display: flex;
+      gap: var(--space-md);
+      border-bottom: 2px solid var(--border);
+      margin-bottom: var(--space-xl);
+      overflow-x: auto;
+    }
+
+    .tab {
+      padding: 12px 16px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--text-secondary);
+      border-bottom: 3px solid transparent;
+      transition: var(--transition-base);
+      white-space: nowrap;
+    }
+
+    .tab:hover {
+      color: var(--primary);
+    }
+
+    .tab.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+
+    .appointment-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      margin-bottom: var(--space-md);
+      display: flex;
+      gap: var(--space-lg);
+      align-items: start;
+      transition: var(--transition-base);
+    }
+
+    .appointment-item:hover {
+      border-color: var(--primary);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .appointment-time {
+      background: var(--primary-light);
+      color: var(--primary);
+      padding: var(--space-md);
+      border-radius: var(--radius-md);
+      text-align: center;
+      min-width: 80px;
+      font-weight: 700;
+    }
+
+    .appointment-time-day {
+      font-size: 1.5rem;
+    }
+
+    .appointment-time-month {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+    }
+
+    .appointment-details h4 {
+      margin-bottom: var(--space-xs);
+    }
+
+    .appointment-details p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-bottom: var(--space-xs);
+    }
+
+    .medical-record {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      margin-bottom: var(--space-md);
+    }
+
+    .medical-record-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-md);
+    }
+
+    .record-type {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .record-date {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .record-description {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-bottom: var(--space-md);
+    }
+
+    .vital-card {
+      background: linear-gradient(135deg, #e8f0ff 0%, #f0f4ff 100%);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      margin-bottom: var(--space-md);
+      border: 1px solid var(--border);
+    }
+
+    .vital-name {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      font-weight: 600;
+      margin-bottom: var(--space-xs);
+    }
+
+    .vital-value {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .vital-status {
+      font-size: 0.8rem;
+      color: var(--accent-dark);
+      margin-top: var(--space-xs);
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: var(--space-md);
+      margin-top: var(--space-lg);
+      flex-wrap: wrap;
+    }
+
+    .setting-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      margin-bottom: var(--space-md);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .setting-label h4 {
+      margin-bottom: var(--space-xs);
+    }
+
+    .setting-label p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .toggle-switch {
+      width: 50px;
+      height: 28px;
+      background: #ccc;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      border: none;
+      position: relative;
+      transition: var(--transition-base);
+    }
+
+    .toggle-switch.active {
+      background: var(--accent);
+    }
+
+    .toggle-switch::after {
+      content: '';
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      background: white;
+      border-radius: 50%;
+      top: 2px;
+      left: 2px;
+      transition: var(--transition-base);
+    }
+
+    .toggle-switch.active::after {
+      left: 24px;
+    }
+
+    @media (max-width: 768px) {
+      .profile-info {
+        grid-template-columns: 1fr;
+      }
+
+      .profile-avatar {
+        width: 100px;
+        height: 100px;
+        font-size: 3rem;
+      }
+
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .tabs {
+        gap: var(--space-sm);
+      }
+
+      .tab {
+        padding: 10px 12px;
+        font-size: 0.9rem;
+      }
+
+      .appointment-item {
+        flex-direction: column;
+      }
+
+      .setting-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-md);
+      }
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .modal.open {
+      display: flex;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: var(--radius-lg);
+      width: 90%;
+      max-width: 500px;
+      max-height: 80vh;
+      overflow-y: auto;
+      padding: var(--space-2xl);
+      box-shadow: var(--shadow-xl);
+      animation: slideInUp 0.3s ease;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-lg);
+    }
+
+    .modal-close {
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--text-muted);
+      transition: var(--transition-base);
+    }
+
+    .modal-close:hover {
+      color: var(--text-primary);
+    }
+
+    @keyframes slideInUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navbar ── -->
+  <nav class="navbar" role="navigation">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-logo">
+        <div class="logo-icon">⚕️</div>
+        Medix
+      </a>
+      <ul class="navbar-nav">
+        <li><a href="home.html">🏠 Home</a></li>
+        <li><a href="all_hospitals.html">🏥 Hospitals</a></li>
+        <li><a href="appointments.html">📅 Appointments</a></li>
+        <li><a href="emergency.html">🚨 Emergency</a></li>
+        <li><a href="dashboard.html">📊 Dashboard</a></li>
+        <li><a href="profile.html" class="active">👤 Profile</a></li>
+        <li><a href="settings.html">⚙️ Settings</a></li>
+      </ul>
+      <div class="navbar-actions">
+        <button class="btn btn-sm btn-primary" onclick="window.location.href='emergency.html'">🚨 SOS</button>
+        <div class="avatar">A</div>
+        <button class="menu-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── Profile Header ── -->
+  <header class="profile-header">
+    <div class="container">
+      <h1 style="color:white">My Profile</h1>
+      <p style="color:rgba(255,255,255,0.75);margin-top:8px">View and manage your health information</p>
+    </div>
+  </header>
+
+  <!-- ── Main Content ── -->
+  <main style="padding: var(--space-2xl) 0;">
+    <div class="container">
+
+      <!-- Profile Overview -->
+      <div class="profile-card">
+        <div class="profile-info">
+          <div class="profile-avatar" id="profileAvatarInitials">👤</div>
+          <div class="profile-details">
+            <h2 id="profileName">Loading...</h2>
+            <p id="profileEmail">📧 Loading...</p>
+            <p id="profilePhone">📱 +91 98765 43210</p>
+            <p id="profileDoctor">🏥 Primary Doctor: Dr. Rajesh Kumar</p>
+            <span class="profile-badge">✓ Verified Member</span>
+          </div>
+        </div>
+
+        <div class="info-grid">
+          <div class="info-item">
+            <div class="info-item-label">Age</div>
+            <div class="info-item-value">32 years</div>
+          </div>
+          <div class="info-item">
+            <div class="info-item-label">Blood Type</div>
+            <div class="info-item-value">B+</div>
+          </div>
+          <div class="info-item">
+            <div class="info-item-label">Height</div>
+            <div class="info-item-value">5'10"</div>
+          </div>
+          <div class="info-item">
+            <div class="info-item-label">Weight</div>
+            <div class="info-item-value">75 kg</div>
+          </div>
+        </div>
+
+        <div class="action-buttons">
+          <button class="btn btn-primary btn-sm" onclick="Profile.openEditModal()">Edit Profile</button>
+          <button class="btn btn-outline btn-sm" onclick="Profile.openChangePasswordModal()">Change Password</button>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="tabs">
+        <button class="tab active" onclick="switchTab('vitals')">📊 Vitals</button>
+        <button class="tab" onclick="switchTab('appointments')">📅 Appointments</button>
+        <button class="tab" onclick="switchTab('medical')">📋 Medical Records</button>
+        <button class="tab" onclick="switchTab('prescriptions')">💊 Prescriptions</button>
+        <button class="tab" onclick="switchTab('settings')">⚙️ Settings</button>
+      </div>
+
+      <!-- Vitals Tab -->
+      <div id="vitals-tab" class="tab-content">
+        <h3 class="section-title">📊 Health Vitals</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--space-lg); margin-bottom: var(--space-2xl);">
+          <div class="vital-card">
+            <div class="vital-name">Blood Pressure</div>
+            <div class="vital-value">120/80</div>
+            <div class="vital-status">✓ Normal</div>
+          </div>
+          <div class="vital-card">
+            <div class="vital-name">Heart Rate</div>
+            <div class="vital-value">72</div>
+            <div class="vital-status">✓ Normal</div>
+          </div>
+          <div class="vital-card">
+            <div class="vital-name">Temperature</div>
+            <div class="vital-value">98.6°F</div>
+            <div class="vital-status">✓ Normal</div>
+          </div>
+          <div class="vital-card">
+            <div class="vital-name">SpO2</div>
+            <div class="vital-value">98%</div>
+            <div class="vital-status">✓ Normal</div>
+          </div>
+        </div>
+
+        <h3 class="section-title">📈 BMI & Weight</h3>
+        <div class="profile-card">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-lg);">
+            <div>
+              <p style="color: var(--text-secondary); margin-bottom: var(--space-sm);">Current BMI</p>
+              <div style="font-size: 2.5rem; font-weight: 800; color: var(--primary);">24.2</div>
+              <p style="color: var(--accent-dark); font-weight: 600;">✓ Healthy Weight</p>
+            </div>
+            <div>
+              <p style="color: var(--text-secondary); margin-bottom: var(--space-sm);">Weight Trend</p>
+              <div style="font-size: 2rem; font-weight: 700; color: var(--text-primary);">↓ -2 kg</div>
+              <p style="color: var(--text-muted);">Last 30 days</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Appointments Tab -->
+      <div id="appointments-tab" class="tab-content" style="display: none;">
+        <h3 class="section-title">📅 Your Appointments</h3>
+        
+        <div style="margin-bottom: var(--space-lg);">
+          <button class="btn btn-primary">+ Book New Appointment</button>
+        </div>
+
+        <h4 style="margin: var(--space-lg) 0 var(--space-md); color: var(--text-primary);">Upcoming</h4>
+        <div class="appointment-item">
+          <div class="appointment-time">
+            <div class="appointment-time-day">28</div>
+            <div class="appointment-time-month">Mar</div>
+          </div>
+          <div class="appointment-details" style="flex: 1;">
+            <h4>Consultation with Dr. Rajesh Kumar</h4>
+            <p>🏥 City Medical Center, Delhi</p>
+            <p>⏰ 2:30 PM - 3:00 PM</p>
+            <p style="color: var(--accent-dark); font-weight: 600;">✓ Confirmed</p>
+          </div>
+          <div style="display: flex; gap: var(--space-sm);">
+            <button class="btn btn-sm btn-outline">Reschedule</button>
+            <button class="btn btn-sm btn-danger" style="background: #ff4757; color: white;">Cancel</button>
+          </div>
+        </div>
+
+        <div class="appointment-item">
+          <div class="appointment-time">
+            <div class="appointment-time-day">05</div>
+            <div class="appointment-time-month">Apr</div>
+          </div>
+          <div class="appointment-details" style="flex: 1;">
+            <h4>Lab Test - Complete Blood Check</h4>
+            <p>🏥 Diagnostic Lab, Delhi</p>
+            <p>⏰ 9:00 AM - 10:00 AM</p>
+            <p style="color: var(--accent-dark); font-weight: 600;">✓ Confirmed</p>
+          </div>
+          <div style="display: flex; gap: var(--space-sm);">
+            <button class="btn btn-sm btn-outline">Reschedule</button>
+            <button class="btn btn-sm btn-danger" style="background: #ff4757; color: white;">Cancel</button>
+          </div>
+        </div>
+
+        <h4 style="margin: var(--space-2xl) 0 var(--space-md); color: var(--text-primary);">Past Appointments</h4>
+        <div class="appointment-item">
+          <div class="appointment-time" style="background: var(--bg); color: var(--text-muted);">
+            <div class="appointment-time-day">15</div>
+            <div class="appointment-time-month">Mar</div>
+          </div>
+          <div class="appointment-details" style="flex: 1;">
+            <h4>Check-up with Dr. Priya Sharma</h4>
+            <p>🏥 City Medical Center, Delhi</p>
+            <p>⏰ 3:00 PM - 4:00 PM</p>
+            <p style="color: var(--text-muted);">Completed</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Medical Records Tab -->
+      <div id="medical-tab" class="tab-content" style="display: none;">
+        <h3 class="section-title">📋 Medical Records</h3>
+
+        <div class="medical-record">
+          <div class="medical-record-header">
+            <div class="record-type">📄 Medical Report</div>
+            <div class="record-date">March 20, 2025</div>
+          </div>
+          <div class="record-description">Comprehensive Health Check-up Report</div>
+          <div style="display: flex; gap: var(--space-md);">
+            <button class="btn btn-sm btn-outline">View</button>
+            <button class="btn btn-sm btn-outline">Download</button>
+          </div>
+        </div>
+
+        <div class="medical-record">
+          <div class="medical-record-header">
+            <div class="record-type">🧬 Lab Results</div>
+            <div class="record-date">March 10, 2025</div>
+          </div>
+          <div class="record-description">Blood Work Analysis - Complete Blood Count</div>
+          <div style="display: flex; gap: var(--space-md);">
+            <button class="btn btn-sm btn-outline">View</button>
+            <button class="btn btn-sm btn-outline">Download</button>
+          </div>
+        </div>
+
+        <div class="medical-record">
+          <div class="medical-record-header">
+            <div class="record-type">🖼️ X-Ray</div>
+            <div class="record-date">February 28, 2025</div>
+          </div>
+          <div class="record-description">Chest X-Ray Imaging</div>
+          <div style="display: flex; gap: var(--space-md);">
+            <button class="btn btn-sm btn-outline">View</button>
+            <button class="btn btn-sm btn-outline">Download</button>
+          </div>
+        </div>
+
+        <div class="medical-record">
+          <div class="medical-record-header">
+            <div class="record-type">📑 Diagnosis Report</div>
+            <div class="record-date">February 15, 2025</div>
+          </div>
+          <div class="record-description">Initial Consultation Report - General Checkup</div>
+          <div style="display: flex; gap: var(--space-md);">
+            <button class="btn btn-sm btn-outline">View</button>
+            <button class="btn btn-sm btn-outline">Download</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Prescriptions Tab -->
+      <div id="prescriptions-tab" class="tab-content" style="display: none;">
+        <h3 class="section-title">💊 Active Medications</h3>
+
+        <div class="medical-record">
+          <div class="medical-record-header">
+            <div class="record-type">🔴 Aspirin</div>
+            <div class="record-date">Prescribed: March 1, 2025</div>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-md); margin: var(--space-md) 0;">
+            <div>
+              <p style="color: var(--text-muted); font-size: 0.85rem;">Dosage</p>
+              <p style="font-weight: 600;">100 mg</p>
+            </div>
+            <div>
+              <p style="color: var(--text-muted); font-size: 0.85rem;">Frequency</p>
+              <p style="font-weight: 600;">Once daily</p>
+            </div>
+            <div>
+              <p style="color: var(--text-muted); font-size: 0.85rem;">Duration</p>
+              <p style="font-weight: 600;">30 days</p>
+            </div>
+          </div>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: var(--space-md);">For heart disease prevention</p>
+          <button class="btn btn-sm btn-outline">View Prescription</button>
+        </div>
+
+        <div class="medical-record">
+          <div class="medical-record-header">
+            <div class="record-type">⚪ Vitamin D3</div>
+            <div class="record-date">Prescribed: February 20, 2025</div>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-md); margin: var(--space-md) 0;">
+            <div>
+              <p style="color: var(--text-muted); font-size: 0.85rem;">Dosage</p>
+              <p style="font-weight: 600;">2000 IU</p>
+            </div>
+            <div>
+              <p style="color: var(--text-muted); font-size: 0.85rem;">Frequency</p>
+              <p style="font-weight: 600;">Once daily</p>
+            </div>
+            <div>
+              <p style="color: var(--text-muted); font-size: 0.85rem;">Duration</p>
+              <p style="font-weight: 600;">Ongoing</p>
+            </div>
+          </div>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: var(--space-md);">Vitamin supplement</p>
+          <button class="btn btn-sm btn-outline">View Prescription</button>
+        </div>
+      </div>
+
+      <!-- Settings Tab -->
+      <div id="settings-tab" class="tab-content" style="display: none;">
+        <h3 class="section-title">⚙️ Account Settings</h3>
+
+        <div class="setting-item">
+          <div class="setting-label">
+            <h4>Email Notifications</h4>
+            <p>Receive appointment reminders via email</p>
+          </div>
+          <button class="toggle-switch active" onclick="this.classList.toggle('active')"></button>
+        </div>
+
+        <div class="setting-item">
+          <div class="setting-label">
+            <h4>SMS Notifications</h4>
+            <p>Receive appointment reminders via SMS</p>
+          </div>
+          <button class="toggle-switch active" onclick="this.classList.toggle('active')"></button>
+        </div>
+
+        <div class="setting-item">
+          <div class="setting-label">
+            <h4>Two-Factor Authentication</h4>
+            <p>Add an extra layer of security to your account</p>
+          </div>
+          <button class="toggle-switch" onclick="this.classList.toggle('active')"></button>
+        </div>
+
+        <div class="setting-item">
+          <div class="setting-label">
+            <h4>Medical Data Sharing</h4>
+            <p>Allow doctors to access your medical history</p>
+          </div>
+          <button class="toggle-switch active" onclick="this.classList.toggle('active')"></button>
+        </div>
+
+        <h3 class="section-title" style="margin-top: var(--space-2xl);">🔐 Privacy & Security</h3>
+
+        <div class="profile-card">
+          <div style="display: grid; gap: var(--space-lg);">
+            <div>
+              <h4 style="margin-bottom: var(--space-sm);">Change Password</h4>
+              <p style="color: var(--text-secondary); margin-bottom: var(--space-md);">Update your password regularly to keep your account secure</p>
+              <button onclick="Profile.openChangePasswordModal()" class="btn btn-primary btn-sm">Change Password</button>
+            </div>
+            <div style="border-top: 1px solid var(--border); padding-top: var(--space-lg);">
+              <h4 style="margin-bottom: var(--space-sm);">Download Your Data</h4>
+              <p style="color: var(--text-secondary); margin-bottom: var(--space-md);">Export all your health data in a portable format</p>
+              <button class="btn btn-outline btn-sm">Download Data</button>
+            </div>
+            <div style="border-top: 1px solid var(--border); padding-top: var(--space-lg);">
+              <h4 style="margin-bottom: var(--space-sm); color: var(--danger);">Delete Account</h4>
+              <p style="color: var(--text-secondary); margin-bottom: var(--space-md);">Permanently delete your account and all associated data</p>
+              <button class="btn" style="background: var(--danger); color: white; padding: 8px 16px;">Delete Account</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom" style="justify-content:center">
+        <span>© 2025 Medix Healthcare. All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Edit Profile Modal -->
+  <div id="editProfileModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 style="margin:0">Edit Profile</h3>
+        <button class="modal-close" onclick="Profile.closeEditModal()">✕</button>
+      </div>
+
+      <form id="editProfileForm" onsubmit="Profile.saveProfile(event)">
+        <div class="form-group">
+          <label class="form-label">Full Name</label>
+          <input type="text" id="editName" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" id="editEmail" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Phone Number</label>
+          <input type="tel" id="editPhone" class="form-control" placeholder="+91 98765 43210" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Primary Doctor</label>
+          <input type="text" id="editDoctor" class="form-control" placeholder="Dr. Name" />
+        </div>
+
+        <div style="display:flex;gap:var(--space-md);margin-top:var(--space-xl);">
+          <button type="submit" class="btn btn-primary btn-full">Save Changes</button>
+          <button type="button" onclick="Profile.closeEditModal()" class="btn btn-outline btn-full">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Change Password Modal -->
+  <div id="changePasswordModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 style="margin:0">Change Password</h3>
+        <button class="modal-close" onclick="Profile.closeChangePasswordModal()">✕</button>
+      </div>
+
+      <form id="changePasswordForm" onsubmit="Profile.changePassword(event)">
+        <div class="form-group">
+          <label class="form-label">Current Password</label>
+          <div class="input-wrapper">
+            <span class="input-icon">🔒</span>
+            <input type="password" id="currentPassword" class="form-control" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">New Password</label>
+          <div class="input-wrapper">
+            <span class="input-icon">🔒</span>
+            <input type="password" id="newPassword" class="form-control" required />
+          </div>
+          <small style="color:var(--text-muted);margin-top:4px;display:block;">At least 8 characters, with uppercase, lowercase, and numbers</small>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Confirm Password</label>
+          <div class="input-wrapper">
+            <span class="input-icon">🔒</span>
+            <input type="password" id="confirmPassword" class="form-control" required />
+          </div>
+        </div>
+
+        <div style="display:flex;gap:var(--space-md);margin-top:var(--space-xl);">
+          <button type="submit" class="btn btn-primary btn-full">Change Password</button>
+          <button type="button" onclick="Profile.closeChangePasswordModal()" class="btn btn-outline btn-full">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    // Tab switching function
+    function switchTab(tabName) {
+      // Hide all tab contents
+      const tabs = document.querySelectorAll('.tab-content');
+      tabs.forEach(tab => tab.style.display = 'none');
+
+      // Remove active class from all tabs
+      const tabButtons = document.querySelectorAll('.tab');
+      tabButtons.forEach(btn => btn.classList.remove('active'));
+
+      // Show selected tab
+      document.getElementById(tabName + '-tab').style.display = 'block';
+
+      // Add active class to clicked tab
+      event.target.classList.add('active');
+    }
+
+    const Profile = {
+      init() {
+        // Load user info from localStorage
+        const user = Storage.get(STORAGE_KEYS.USER);
+        if (!user) {
+          // Redirect to login if not authenticated
+          window.location.href = 'login.html';
+          return;
+        }
+
+        // Populate profile information
+        document.getElementById('profileName').textContent = user.name || 'User';
+        document.getElementById('profileEmail').textContent = '📧 ' + (user.email || 'Not provided');
+        document.getElementById('profilePhone').textContent = '📱 ' + (user.phone || 'Add phone number');
+        document.getElementById('profileDoctor').textContent = '👨‍⚕️ ' + (user.doctor || 'Assign a doctor');
+        
+        // Set avatar initials
+        const initials = Utils.initials(user.name || 'User');
+        document.getElementById('profileAvatarInitials').textContent = initials;
+
+        // Pre-fill edit form
+        document.getElementById('editName').value = user.name || '';
+        document.getElementById('editEmail').value = user.email || '';
+        document.getElementById('editPhone').value = user.phone || '';
+        document.getElementById('editDoctor').value = user.doctor || '';
+      },
+
+      openEditModal() {
+        document.getElementById('editProfileModal').classList.add('open');
+      },
+
+      closeEditModal() {
+        document.getElementById('editProfileModal').classList.remove('open');
+      },
+
+      saveProfile(event) {
+        event.preventDefault();
+        
+        const name = document.getElementById('editName').value.trim();
+        const email = document.getElementById('editEmail').value.trim();
+        const phone = document.getElementById('editPhone').value.trim();
+        const doctor = document.getElementById('editDoctor').value.trim();
+
+        if (!name || !email) {
+          Utils.showToast('Name and email are required', 'error');
+          return;
+        }
+
+        // Update user in localStorage
+        const user = Storage.get(STORAGE_KEYS.USER);
+        const updatedUser = {
+          ...user,
+          name: name,
+          email: email,
+          phone: phone,
+          doctor: doctor,
+        };
+
+        Storage.set(STORAGE_KEYS.USER, updatedUser);
+
+        // Update display
+        document.getElementById('profileName').textContent = name;
+        document.getElementById('profileEmail').textContent = '📧 ' + email;
+        document.getElementById('profilePhone').textContent = '📱 ' + (phone || 'Add phone number');
+        document.getElementById('profileDoctor').textContent = '👨‍⚕️ ' + (doctor || 'Assign a doctor');
+
+        const initials = Utils.initials(name);
+        document.getElementById('profileAvatarInitials').textContent = initials;
+
+        this.closeEditModal();
+        Utils.showToast('✓ Profile updated successfully!', 'success');
+      },
+
+      openChangePasswordModal() {
+        document.getElementById('changePasswordModal').classList.add('open');
+      },
+
+      closeChangePasswordModal() {
+        document.getElementById('changePasswordModal').classList.remove('open');
+        document.getElementById('changePasswordForm').reset();
+      },
+
+      changePassword(event) {
+        event.preventDefault();
+
+        const currentPassword = document.getElementById('currentPassword').value;
+        const newPassword = document.getElementById('newPassword').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+
+        // Validation
+        if (!currentPassword || !newPassword || !confirmPassword) {
+          Utils.showToast('All fields are required', 'error');
+          return;
+        }
+
+        if (newPassword.length < 8) {
+          Utils.showToast('Password must be at least 8 characters long', 'error');
+          return;
+        }
+
+        if (newPassword !== confirmPassword) {
+          Utils.showToast('Passwords do not match', 'error');
+          return;
+        }
+
+        if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(newPassword)) {
+          Utils.showToast('Password must contain uppercase, lowercase, and numbers', 'error');
+          return;
+        }
+
+        // In a real app, this would be sent to the server
+        // For demo, we'll just show success
+        this.closeChangePasswordModal();
+        Utils.showToast('✓ Password changed successfully!', 'success');
+      },
+    };
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      App.init();
+      Profile.init();
+    });
+  </script>

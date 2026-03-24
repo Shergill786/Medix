@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In – Medix Healthcare</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <style>
+    .btn-spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255,255,255,0.4);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: inline-block;
+    }
+
+    .error-text {
+      display: none;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.8rem;
+      color: var(--danger);
+      margin-top: 6px;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <main class="auth-page">
+    <!-- Left visual panel -->
+    <div class="auth-visual" aria-hidden="true">
+      <div class="auth-visual-content">
+        <div class="auth-logo">
+          <div class="auth-logo-icon">⚕️</div>
+          <span class="auth-logo-text">Medix</span>
+        </div>
+
+        <h2 class="auth-tagline">
+          Healthcare at<br>
+          <span>your fingertips</span>
+        </h2>
+
+        <div class="auth-features">
+          <div class="auth-feature">
+            <div class="auth-feature-icon">🏥</div>
+            <span>Find top-rated hospitals near you</span>
+          </div>
+          <div class="auth-feature">
+            <div class="auth-feature-icon">📅</div>
+            <span>Book doctor appointments instantly</span>
+          </div>
+          <div class="auth-feature">
+            <div class="auth-feature-icon">💊</div>
+            <span>Never miss your medications</span>
+          </div>
+          <div class="auth-feature">
+            <div class="auth-feature-icon">🚨</div>
+            <span>One-tap emergency assistance</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right form panel -->
+    <div class="auth-panel">
+      <div class="auth-form-wrap">
+        <div class="auth-welcome animate-fade-in-up">
+          <h2>Welcome back 👋</h2>
+          <p>Sign in to your Medix account to continue</p>
+        </div>
+
+        <!-- Alert area -->
+        <div id="formAlert" class="alert" style="display:none" role="alert"></div>
+
+        <!-- Demo hint -->
+        <div class="alert alert-info" style="margin-bottom: 20px;">
+          💡 <strong>Demo:</strong> Use <code>demo@medix.com</code> / <code>Demo@1234</code>
+          &nbsp;
+          <button id="demoLoginBtn" class="btn btn-sm btn-outline-primary" style="padding:4px 12px;font-size:0.75rem">
+            Fill In
+          </button>
+        </div>
+
+        <form id="loginForm" novalidate autocomplete="on">
+          <!-- Email -->
+          <div class="form-group">
+            <label class="form-label" for="email">Email Address</label>
+            <div class="input-wrapper">
+              <span class="input-icon">📧</span>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="form-control"
+                placeholder="you@example.com"
+                autocomplete="email"
+                required
+              />
+            </div>
+            <span class="error-text" id="emailError" role="alert">⚠️ </span>
+          </div>
+
+          <!-- Password -->
+          <div class="form-group">
+            <label class="form-label" for="password">Password</label>
+            <div class="input-wrapper">
+              <span class="input-icon">🔒</span>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                class="form-control"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+                required
+              />
+              <span class="input-suffix" id="togglePassword" title="Toggle password visibility" role="button" tabindex="0">👁️</span>
+            </div>
+            <span class="error-text" id="passwordError" role="alert">⚠️ </span>
+          </div>
+
+          <!-- Remember + Forgot -->
+          <div class="remember-row">
+            <label class="checkbox-label">
+              <input type="checkbox" id="remember" name="remember" />
+              Remember me
+            </label>
+            <a href="#" class="forgot-link">Forgot password?</a>
+          </div>
+
+          <!-- Submit -->
+          <button type="submit" id="submitBtn" class="btn btn-primary btn-full btn-lg">
+            🔐 Sign In
+          </button>
+        </form>
+
+        <div class="divider-text" style="margin: 24px 0;">or</div>
+
+        <!-- Social stubs -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px">
+          <button class="btn btn-outline" onclick="Utils.showToast('Social login coming soon!','info')">
+            🌐 Google
+          </button>
+          <button class="btn btn-outline" onclick="Utils.showToast('Social login coming soon!','info')">
+            🍎 Apple
+          </button>
+        </div>
+
+        <div class="auth-footer">
+          Don't have an account?
+          <a href="#">Create one free →</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+      <script src="js/app.js"></script>
+      <script src="js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Find Hospitals – Medix Healthcare</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/components.css" />
+</head>
+<body>
+
+  <!-- ── Navbar ── -->
+  <nav class="navbar" role="navigation">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-logo">
+        <div class="logo-icon">⚕️</div>
+        Medix
+      </a>
+      <ul class="navbar-nav">
+        <li><a href="home.html">🏠 Home</a></li>
+        <li><a href="hospitals.html" class="active">🏥 Hospitals</a></li>
+        <li><a href="appointments.html">📅 Appointments</a></li>
+        <li><a href="emergency.html">🚨 Emergency</a></li>
+        <li><a href="dashboard.html">📊 Dashboard</a></li>
+        <li><a href="reminders.html">💊 Reminders</a></li>
+      </ul>
+      <div class="navbar-actions">
+        <button class="btn btn-sm btn-primary" onclick="window.location.href='emergency.html'">🚨 SOS</button>
+        <div class="avatar">A</div>
+        <button class="menu-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── Page Header ── -->
+  <header class="page-header">
+    <div class="container">
+      <span class="section-label" style="background:rgba(255,255,255,0.15);color:white">🏥 Hospital Finder</span>
+      <h1 class="h1" style="color:white;margin-top:12px">Find Top Hospitals Near You</h1>
+      <p style="color:rgba(255,255,255,0.75)">Discover quality healthcare across India — search by city, name, or specialty</p>
+    </div>
+  </header>
+
+  <!-- ── Search & Filters ── -->
+  <section class="section-sm">
+    <div class="container">
+      <div class="search-bar-card">
+        <div class="search-row">
+          <div class="input-wrapper" style="flex:1">
+            <span class="input-icon">🔍</span>
+            <input
+              type="search"
+              id="hospitalSearch"
+              class="form-control"
+              placeholder="Search by hospital name, city, or specialty…"
+              aria-label="Search hospitals"
+            />
+          </div>
+          <div class="input-wrapper" style="flex:0 0 180px">
+            <span class="input-icon">📍</span>
+            <select class="form-control" id="cityFilter" style="padding-left:44px">
+              <option value="">All Cities</option>
+              <option value="Delhi">New Delhi</option>
+              <option value="Mumbai">Mumbai</option>
+              <option value="Bangalore">Bangalore</option>
+              <option value="Chennai">Chennai</option>
+              <option value="Hyderabad">Hyderabad</option>
+            </select>
+          </div>
+          <button class="btn btn-primary" onclick="Hospitals.setupSearch()">Search</button>
+        </div>
+
+        <div class="filter-tags">
+          <button class="filter-tag active" data-filter="all">All Hospitals</button>
+          <button class="filter-tag" data-filter="Government">Government</button>
+          <button class="filter-tag" data-filter="Private">Private</button>
+          <button class="filter-tag" data-filter="Cardiology">Cardiology</button>
+          <button class="filter-tag" data-filter="Orthopedics">Orthopedics</button>
+          <button class="filter-tag" data-filter="Neurology">Neurology</button>
+          <button class="filter-tag" data-filter="Oncology">Oncology</button>
+          <button class="filter-tag" data-filter="Pediatrics">Pediatrics</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Results ── -->
+  <section class="section-sm" style="padding-bottom:var(--space-3xl)">
+    <div class="container">
+      <div class="flex justify-between items-center" style="margin-bottom:var(--space-lg)">
+        <div>
+          <h2 class="h3">Hospitals</h2>
+          <p class="text-sm text-secondary" id="resultCount">Loading…</p>
+        </div>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-sm btn-ghost" id="sortRating">⭐ Top Rated</button>
+          <button class="btn btn-sm btn-ghost" id="sortBeds">🛏️ Most Beds</button>
+        </div>
+      </div>
+
+      <div class="hospitals-grid" id="hospitalsGrid">
+        <!-- Populated by dashboard.js -->
+        <div class="card" style="border-radius:var(--radius-xl);height:280px;background:linear-gradient(90deg,#f0f4ff 25%,#e8ecf8 50%,#f0f4ff 75%);background-size:200% 100%;animation:skeleton-loading 1.5s infinite"></div>
+        <div class="card" style="border-radius:var(--radius-xl);height:280px;background:linear-gradient(90deg,#f0f4ff 25%,#e8ecf8 50%,#f0f4ff 75%);background-size:200% 100%;animation:skeleton-loading 1.5s infinite;animation-delay:0.1s"></div>
+        <div class="card" style="border-radius:var(--radius-xl);height:280px;background:linear-gradient(90deg,#f0f4ff 25%,#e8ecf8 50%,#f0f4ff 75%);background-size:200% 100%;animation:skeleton-loading 1.5s infinite;animation-delay:0.2s"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom" style="justify-content:center">
+        <span>© 2025 Medix Healthcare. All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      Hospitals.init();
+
+      // Update result count
+      const updateCount = () => {
+        const cards = document.querySelectorAll('.hospital-card').length;
+        document.getElementById('resultCount').textContent = `${cards} hospitals found`;
+      };
+
+      setTimeout(updateCount, 300);
+
+      // Pre-fill from URL params
+      const q = new URLSearchParams(window.location.search).get('q');
+      if (q) {
+        const input = document.getElementById('hospitalSearch');
+        if (input) { input.value = q; input.dispatchEvent(new Event('input')); }
+      }
+
+      // Sort buttons
+      document.getElementById('sortRating')?.addEventListener('click', () => {
+        const data = getHospitals().sort((a, b) => b.rating - a.rating);
+        Hospitals.renderHospitals(data);
+        setTimeout(updateCount, 100);
+      });
+      document.getElementById('sortBeds')?.addEventListener('click', () => {
+        const data = getHospitals().sort((a, b) => b.beds - a.beds);
+        Hospitals.renderHospitals(data);
+        setTimeout(updateCount, 100);
+      });
+    });
+  </script>
+</body>
+</html>

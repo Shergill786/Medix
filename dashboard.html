@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard – Medix Healthcare</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/components.css" />
+</head>
+<body>
+
+  <!-- ── Navbar ── -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <div style="display:flex;align-items:center;gap:12px">
+        <button class="sidebar-toggle btn btn-ghost btn-icon" aria-label="Toggle sidebar" title="Toggle sidebar">
+          ☰
+        </button>
+        <a href="../index.html" class="navbar-logo">
+          <div class="logo-icon">⚕️</div>
+          Medix
+        </a>
+      </div>
+      <ul class="navbar-nav">
+        <li><a href="home.html">🏠 Home</a></li>
+        <li><a href="hospitals.html">🏥 Hospitals</a></li>
+        <li><a href="appointments.html">📅 Appointments</a></li>
+        <li><a href="emergency.html">🚨 Emergency</a></li>
+        <li><a href="dashboard.html" class="active">📊 Dashboard</a></li>
+        <li><a href="reminders.html">💊 Reminders</a></li>
+      </ul>
+      <div class="navbar-actions">
+        <button class="btn btn-sm btn-primary" onclick="window.location.href='emergency.html'">🚨 SOS</button>
+        <div class="avatar sidebar-avatar">A</div>
+        <button class="menu-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── Layout ── -->
+  <div class="dashboard-layout">
+
+    <!-- ── Sidebar ── -->
+    <aside class="sidebar" role="complementary" aria-label="Dashboard navigation">
+      <div class="sidebar-header">
+        <div class="sidebar-user">
+          <div class="sidebar-avatar">A</div>
+          <div class="sidebar-user-info">
+            <h4>Alex Johnson</h4>
+            <p>Patient ID: MX-00421</p>
+          </div>
+        </div>
+      </div>
+
+      <nav class="sidebar-menu">
+        <div class="sidebar-label">Overview</div>
+        <a href="dashboard.html" class="sidebar-link active">
+          <span class="link-icon">📊</span>
+          Dashboard
+        </a>
+        <a href="appointments.html" class="sidebar-link">
+          <span class="link-icon">📅</span>
+          Appointments
+          <span class="badge-count">2</span>
+        </a>
+        <a href="reminders.html" class="sidebar-link">
+          <span class="link-icon">💊</span>
+          Reminders
+        </a>
+
+        <div class="sidebar-label">Healthcare</div>
+        <a href="hospitals.html" class="sidebar-link">
+          <span class="link-icon">🏥</span>
+          Find Hospitals
+        </a>
+        <a href="emergency.html" class="sidebar-link">
+          <span class="link-icon">🚨</span>
+          Emergency
+        </a>
+
+                <div class="sidebar-label">Account</div>
+        <a href="profile.html" class="sidebar-link">
+          <span class="link-icon">👤</span>
+          Profile
+        </a>
+        <a href="settings.html" class="sidebar-link">
+          <span class="link-icon">⚙️</span>
+          Settings
+        </a>
+        <a href="login.html" class="sidebar-link" style="color:var(--danger);margin-top:24px">
+          <span class="link-icon">🚪</span>
+          Sign Out
+        </a>
+      </nav>
+    </aside>
+
+    <!-- ── Main Content ── -->
+    <main class="dashboard-content" role="main">
+
+      <!-- Dash Header -->
+      <div class="dash-header">
+        <div>
+          <h1 class="h2">Good morning, <span data-user-name>Alex</span> 👋</h1>
+          <p class="text-secondary">Here's your health overview for today</p>
+        </div>
+        <div style="display:flex;gap:12px">
+          <a href="appointments.html" class="btn btn-outline btn-sm">📅 New Appointment</a>
+          <a href="reminders.html"    class="btn btn-primary btn-sm">💊 Add Reminder</a>
+        </div>
+      </div>
+
+      <!-- Stats Row -->
+      <div class="stats-row">
+        <div class="stat-card blue">
+          <div class="stat-top">
+            <div class="stat-icon blue">📅</div>
+            <span class="badge badge-blue text-xs">+2 this week</span>
+          </div>
+          <div class="stat-value" id="statAppointments">—</div>
+          <div class="stat-label">Upcoming Appointments</div>
+        </div>
+        <div class="stat-card green">
+          <div class="stat-top">
+            <div class="stat-icon green">✅</div>
+            <span class="badge badge-green text-xs">All time</span>
+          </div>
+          <div class="stat-value" id="statCompleted">—</div>
+          <div class="stat-label">Completed Visits</div>
+        </div>
+        <div class="stat-card yellow">
+          <div class="stat-top">
+            <div class="stat-icon yellow">💊</div>
+            <span class="badge badge-yellow text-xs">Active</span>
+          </div>
+          <div class="stat-value" id="statReminders">—</div>
+          <div class="stat-label">Medicine Reminders</div>
+        </div>
+        <div class="stat-card red">
+          <div class="stat-top">
+            <div class="stat-icon red">🏥</div>
+            <span class="badge badge-red text-xs">Visited</span>
+          </div>
+          <div class="stat-value" id="statHospitals">—</div>
+          <div class="stat-label">Hospitals Visited</div>
+        </div>
+      </div>
+
+      <!-- Main Grid -->
+      <div class="dash-grid">
+        <!-- Left column -->
+        <div style="display:flex;flex-direction:column;gap:var(--space-xl)">
+
+          <!-- Appointments -->
+          <div class="card">
+            <div class="flex justify-between items-center" style="margin-bottom:var(--space-lg)">
+              <h3 class="h4">📅 Upcoming Appointments</h3>
+              <a href="appointments.html" class="btn btn-sm btn-ghost">Book New →</a>
+            </div>
+            <div id="upcomingAppointments">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+
+          <!-- Health Stats -->
+          <div class="card">
+            <div class="flex justify-between items-center" style="margin-bottom:var(--space-lg)">
+              <h3 class="h4">❤️ Health Vitals</h3>
+              <span class="badge badge-green">🟢 Updated today</span>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px">
+              <div style="text-align:center;padding:16px;background:var(--danger-light);border-radius:var(--radius-lg)">
+                <div style="font-size:1.5rem;margin-bottom:4px">❤️</div>
+                <div style="font-size:1.5rem;font-weight:800;font-family:var(--font-display);color:var(--danger)">72</div>
+                <div style="font-size:0.75rem;color:var(--text-secondary)">Heart Rate bpm</div>
+              </div>
+              <div style="text-align:center;padding:16px;background:var(--primary-light);border-radius:var(--radius-lg)">
+                <div style="font-size:1.5rem;margin-bottom:4px">🩸</div>
+                <div style="font-size:1.5rem;font-weight:800;font-family:var(--font-display);color:var(--primary)">118/76</div>
+                <div style="font-size:0.75rem;color:var(--text-secondary)">Blood Pressure</div>
+              </div>
+              <div style="text-align:center;padding:16px;background:var(--accent-light);border-radius:var(--radius-lg)">
+                <div style="font-size:1.5rem;margin-bottom:4px">🌡️</div>
+                <div style="font-size:1.5rem;font-weight:800;font-family:var(--font-display);color:var(--accent-dark)">98.6°</div>
+                <div style="font-size:0.75rem;color:var(--text-secondary)">Body Temperature</div>
+              </div>
+            </div>
+
+            <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr;gap:12px">
+              <div style="display:flex;align-items:center;gap:8px;font-size:0.875rem">
+                <span>🩺</span>
+                <span>Blood Sugar: <strong>95 mg/dL</strong></span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;font-size:0.875rem">
+                <span>⚖️</span>
+                <span>Weight: <strong>74 kg</strong></span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;font-size:0.875rem">
+                <span>🫁</span>
+                <span>SpO₂: <strong>98%</strong></span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;font-size:0.875rem">
+                <span>👣</span>
+                <span>Steps Today: <strong>6,240</strong></span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right column: Notifications -->
+        <div style="display:flex;flex-direction:column;gap:var(--space-xl)">
+
+          <div class="card">
+            <div class="flex justify-between items-center" style="margin-bottom:var(--space-lg)">
+              <h3 class="h4">🔔 Notifications</h3>
+              <span class="badge badge-red">4 new</span>
+            </div>
+            <div id="notificationsList">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+
+          <!-- Quick actions -->
+          <div class="card">
+            <h3 class="h4" style="margin-bottom:var(--space-lg)">⚡ Quick Actions</h3>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <a href="hospitals.html"    class="btn btn-ghost" style="justify-content:flex-start;gap:12px">🏥 Find a Hospital</a>
+              <a href="appointments.html" class="btn btn-ghost" style="justify-content:flex-start;gap:12px">📅 Book Appointment</a>
+              <a href="reminders.html"    class="btn btn-ghost" style="justify-content:flex-start;gap:12px">💊 Add Reminder</a>
+              <a href="emergency.html"    class="btn btn-ghost" style="justify-content:flex-start;gap:12px;color:var(--danger)">🚨 Emergency Help</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

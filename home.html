@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home – Medix Healthcare</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/components.css" />
+</head>
+<body>
+
+  <!-- ── Navbar ── -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-logo">
+        <div class="logo-icon">⚕️</div>
+        Medix
+      </a>
+
+      <ul class="navbar-nav" role="list">
+        <li><a href="home.html" class="active">🏠 Home</a></li>
+        <li><a href="all_hospitals.html">🏥 Hospitals</a></li>
+        <li><a href="appointments.html">📅 Appointments</a></li>
+        <li><a href="emergency.html">🚨 Emergency</a></li>
+        <li><a href="dashboard.html">📊 Dashboard</a></li>
+        <li><a href="reminders.html">💊 Reminders</a></li>
+      </ul>
+
+      <div class="navbar-actions">
+        <button class="btn btn-sm btn-primary" onclick="window.location.href='emergency.html'">🚨 SOS</button>
+        <div class="avatar" title="Profile" onclick="Utils.showToast('Profile coming soon!','info')">A</div>
+        <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── Hero ── -->
+  <section class="home-hero">
+    <div class="container">
+      <div class="home-hero-inner">
+        <div>
+          <p class="home-greeting">
+            <span class="wave">👋</span>
+            Good morning, <strong data-user-name>Friend</strong>
+          </p>
+          <h1>How are you feeling <span>today?</span></h1>
+          <p class="home-hero-sub">
+            Access hospitals, book appointments, set medicine reminders and get emergency help — all in one place.
+          </p>
+
+          <div class="hero-search">
+            <input type="text" placeholder="Search hospitals, doctors, specialties…" id="heroSearch" aria-label="Search" />
+            <button class="btn btn-primary" onclick="handleHeroSearch()">🔍 Search</button>
+          </div>
+
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <strong>500+</strong>
+              <span>Hospitals</span>
+            </div>
+            <div class="hero-stat-sep"></div>
+            <div class="hero-stat">
+              <strong>2,000+</strong>
+              <span>Doctors</span>
+            </div>
+            <div class="hero-stat-sep"></div>
+            <div class="hero-stat">
+              <strong>50K+</strong>
+              <span>Patients</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Floating card -->
+        <div class="hero-visual">
+          <div class="hero-card-float">
+            <div class="card-icon">❤️</div>
+            <h4>Heart Rate</h4>
+            <p>72 <small style="font-size:1rem;opacity:0.7">bpm</small></p>
+            <p style="font-size:0.75rem;opacity:0.6;margin-top:8px">● Normal range</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Quick Nav ── -->
+  <section class="section-sm">
+    <div class="container">
+      <nav class="quick-nav" aria-label="Quick navigation">
+        <a href="all_hospitals.html" class="quick-nav-card animate-on-scroll">
+          <div class="quick-nav-icon qni-blue">🏥</div>
+          <h4>Find Hospitals</h4>
+          <p>Search nearby hospitals by specialty</p>
+        </a>
+        <a href="appointments.html" class="quick-nav-card animate-on-scroll delay-1">
+          <div class="quick-nav-icon qni-green">📅</div>
+          <h4>Book Appointment</h4>
+          <p>Schedule a doctor visit in seconds</p>
+        </a>
+        <a href="emergency.html" class="quick-nav-card animate-on-scroll delay-2">
+          <div class="quick-nav-icon qni-red">🚨</div>
+          <h4>Emergency</h4>
+          <p>Quick access to emergency services</p>
+        </a>
+        <a href="dashboard.html" class="quick-nav-card animate-on-scroll delay-3">
+          <div class="quick-nav-icon qni-purple">📊</div>
+          <h4>Dashboard</h4>
+          <p>Your health overview & stats</p>
+        </a>
+      </nav>
+    </div>
+  </section>
+
+  <!-- ── Health Metrics ── -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">❤️ Health Overview</span>
+        <h2 class="h2">Your Health at a Glance</h2>
+      </div>
+
+      <div class="metrics-grid">
+        <div class="metric-card blue animate-on-scroll">
+          <div class="metric-icon blue">❤️</div>
+          <div class="metric-value">72<span class="metric-unit">bpm</span></div>
+          <div class="metric-label">Heart Rate</div>
+          <span class="metric-trend trend-stable">→ Normal</span>
+        </div>
+        <div class="metric-card green animate-on-scroll delay-1">
+          <div class="metric-icon green">🩸</div>
+          <div class="metric-value">118<span class="metric-unit">mmHg</span></div>
+          <div class="metric-label">Blood Pressure</div>
+          <span class="metric-trend trend-up">↑ Good</span>
+        </div>
+        <div class="metric-card red animate-on-scroll delay-2">
+          <div class="metric-icon red">⚖️</div>
+          <div class="metric-value">74<span class="metric-unit">kg</span></div>
+          <div class="metric-label">Body Weight</div>
+          <span class="metric-trend trend-down">↓ -1.2 kg</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Upcoming Appointments ── -->
+  <section class="section-sm" style="padding-bottom: var(--space-3xl)">
+    <div class="container">
+      <div class="section-header flex justify-between items-center">
+        <div>
+          <span class="section-label">📅 Schedule</span>
+          <h2 class="h2">Upcoming Appointments</h2>
+        </div>
+        <a href="appointments.html" class="btn btn-outline-primary">View All →</a>
+      </div>
+
+      <div class="card" style="max-width:600px">
+        <div id="homeAppointments">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Quick Actions ── -->
+  <section class="section" style="background:var(--text-primary);padding:var(--space-2xl) 0">
+    <div class="container" style="text-align:center">
+      <h2 class="h2" style="color:white;margin-bottom:var(--space-sm)">Need help right now?</h2>
+      <p style="color:rgba(255,255,255,0.6);margin-bottom:var(--space-xl)">
+        Emergency services are just one tap away
+      </p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+        <a href="emergency.html" class="btn btn-danger btn-lg">🚨 Emergency Help</a>
+        <a href="reminders.html" class="btn btn-lg" style="background:rgba(255,255,255,0.1);color:white;border:2px solid rgba(255,255,255,0.2)">💊 Set Reminder</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <h3>⚕️ Medix</h3>
+          <p>Your complete personal healthcare companion. Connecting patients with quality healthcare across India.</p>
+        </div>
+        <div class="footer-col">
+          <h5>Services</h5>
+          <ul>
+            <li><a href="hospitals.html">Find Hospitals</a></li>
+            <li><a href="appointments.html">Book Doctors</a></li>
+            <li><a href="reminders.html">Medicine Reminders</a></li>
+            <li><a href="emergency.html">Emergency</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Company</h5>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Press</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Support</h5>
+          <ul>
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 Medix Healthcare. All rights reserved.</span>
+        <span>Made with ❤️ for better health</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script>
+    // Home page appointment preview
+    document.addEventListener('DOMContentLoaded', () => {
+      const container = document.getElementById('homeAppointments');
+      if (!container) return;
+
+      const appointments = (Storage.get(STORAGE_KEYS.APPOINTMENTS) || []).concat([
+        { doctor: 'Dr. Sarah Chen', specialty: 'Cardiology', date: '2025-08-10', time: '10:30', status: 'upcoming' },
+        { doctor: 'Dr. Raj Kumar',  specialty: 'Dermatology', date: '2025-08-14', time: '14:00', status: 'upcoming' },
+      ]).filter(a => a.status === 'upcoming').slice(0, 3);
+
+      if (!appointments.length) {
+        container.innerHTML = `
+          <div style="text-align:center;padding:32px;color:var(--text-muted)">
+            <div style="font-size:2.5rem;margin-bottom:12px">📅</div>
+            <p>No upcoming appointments</p>
+            <a href="appointments.html" class="btn btn-primary btn-sm" style="margin-top:12px">Book Now</a>
+          </div>`;
+        return;
+      }
+
+      container.innerHTML = appointments.map(a => `
+        <div class="appointment-mini" style="margin-bottom:8px">
+          <div class="appt-mini-date">
+            <span class="day">${new Date(a.date).getDate()}</span>
+            <span class="month">${new Date(a.date).toLocaleString('en',{month:'short'}).toUpperCase()}</span>
+          </div>
+          <div style="flex:1">
+            <div style="font-weight:600;font-size:0.875rem">${a.doctor}</div>
+            <div style="font-size:0.8rem;color:var(--text-secondary)">${a.specialty} · ${Utils.formatTime(a.time)}</div>
+          </div>
+          <span class="badge badge-blue">Upcoming</span>
+        </div>
+      `).join('');
+
+      // Populate user name
+      const user = Storage.get('medix_user');
+      if (user) {
+        document.querySelector('[data-user-name]').textContent = user.name.split(' ')[0];
+      }
+    });
+
+    function handleHeroSearch() {
+      const q = document.getElementById('heroSearch').value.trim();
+      if (q) window.location.href = `hospitals.html?q=${encodeURIComponent(q)}`;
+      else Utils.showToast('Enter something to search', 'warning');
+    }
+
+    document.getElementById('heroSearch')?.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') handleHeroSearch();
+    });
+  </script>
+</body>
+</html>

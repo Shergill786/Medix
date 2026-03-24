@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Settings – Medix Healthcare</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/components.css" />
+</head>
+<body>
+
+  <!-- ── Navbar ── -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <div style="display:flex;align-items:center;gap:12px">
+        <button class="sidebar-toggle btn btn-ghost btn-icon" aria-label="Toggle sidebar" title="Toggle sidebar">
+          ☰
+        </button>
+        <a href="index.html" class="navbar-logo">
+          <div class="logo-icon">⚕️</div>
+          Medix
+        </a>
+      </div>
+      <ul class="navbar-nav">
+        <li><a href="home.html">🏠 Home</a></li>
+        <li><a href="hospitals.html">🏥 Hospitals</a></li>
+        <li><a href="appointments.html">📅 Appointments</a></li>
+        <li><a href="emergency.html">🚨 Emergency</a></li>
+        <li><a href="dashboard.html">📊 Dashboard</a></li>
+        <li><a href="profile.html">👤 Profile</a></li>
+        <li><a href="settings.html" class="active">⚙️ Settings</a></li>
+      </ul>
+      <div class="navbar-actions">
+        <button class="btn btn-sm btn-primary" onclick="window.location.href='emergency.html'">🚨 SOS</button>
+        <div class="avatar sidebar-avatar">A</div>
+        <button class="menu-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── Settings Header ── -->
+  <section class="settings-header">
+    <div class="container">
+      <h1>⚙️ Settings</h1>
+      <p>Manage your account, preferences, and privacy</p>
+    </div>
+  </section>
+
+  <!-- ── Settings Content ── -->
+  <div class="container settings-container">
+    <aside class="settings-sidebar">
+      <nav class="settings-nav">
+        <button class="settings-nav-item active" data-section="account">👤 Account</button>
+        <button class="settings-nav-item" data-section="notifications">🔔 Notifications</button>
+        <button class="settings-nav-item" data-section="privacy">🔒 Privacy & Security</button>
+        <button class="settings-nav-item" data-section="appearance">🎨 Appearance</button>
+        <button class="settings-nav-item" data-section="health">❤️ Health Data</button>
+        <button class="settings-nav-item" data-section="about">ℹ️ About</button>
+      </nav>
+    </aside>
+
+    <main class="settings-content">
+      
+      <!-- Account Settings -->
+      <section id="account" class="settings-section active">
+        <div class="section-header">
+          <h2>Account Settings</h2>
+          <p>Update your profile information and contact details</p>
+        </div>
+
+        <div class="settings-card">
+          <div class="settings-group">
+            <label for="fullname">Full Name</label>
+            <input type="text" id="fullname" placeholder="Your full name" value="Ahmed Hassan" />
+          </div>
+          <div class="settings-group">
+            <label for="email">Email Address</label>
+            <div class="input-with-action">
+              <input type="email" id="email" placeholder="your@email.com" value="ahmed@medix.com" />
+              <button class="btn btn-sm btn-ghost">Verify</button>
+            </div>
+            <small class="text-muted">Verified ✓</small>
+          </div>
+          <div class="settings-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" placeholder="+1 (555) 000-0000" value="+92 300-1234567" />
+          </div>
+          <div class="settings-group">
+            <label for="dob">Date of Birth</label>
+            <input type="date" id="dob" value="1990-05-15" />
+          </div>
+
+          <hr class="settings-divider" />
+
+          <h3 style="margin-bottom: var(--space-lg);">Change Password</h3>
+          <div class="settings-group">
+            <label for="current-pwd">Current Password</label>
+            <input type="password" id="current-pwd" placeholder="Enter current password" />
+          </div>
+          <div class="settings-group">
+            <label for="new-pwd">New Password</label>
+            <input type="password" id="new-pwd" placeholder="Enter new password" />
+          </div>
+          <div class="settings-group">
+            <label for="confirm-pwd">Confirm Password</label>
+            <input type="password" id="confirm-pwd" placeholder="Confirm new password" />
+          </div>
+          <button class="btn btn-primary" onclick="saveChanges('account')">Update Account</button>
+        </div>
+      </section>
+
+      <!-- Notification Settings -->
+      <section id="notifications" class="settings-section">
+        <div class="section-header">
+          <h2>Notification Preferences</h2>
+          <p>Control how and when you receive notifications</p>
+        </div>
+
+        <div class="settings-card">
+          <h3 style="margin-bottom: var(--space-lg);">Email Notifications</h3>
+          <div class="settings-toggle-group">
+            <div class="toggle-item">
+              <div class="toggle-info">
+                <h4>Appointment Reminders</h4>
+                <p>Receive reminder emails before your appointments</p>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="appointment-emails" checked />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+
+            <div class="toggle-item">
+              <div class="toggle-info">
+                <h4>Health Tips & News</h4>
+                <p>Weekly health news and medical tips</p>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="health-tips" checked />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+
+            <div class="toggle-item">
+              <div class="toggle-info">
+                <h4>Hospital Updates</h4>
+                <p>News and updates from your favorite hospitals</p>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="hospital-updates" />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+
+            <div class="toggle-item">
+              <div class="toggle-info">
+                <h4>Marketing Emails</h4>
+                <p>Promotions, discounts, and special offers</p>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="marketing-emails" />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <hr class="settings-divider" />
+
+          <h3 style="margin-bottom: var(--space-lg);">Push Notifications</h3>
+          <div class="settings-toggle-group">
+            <div class="toggle-item">
+              <div class="toggle-info">
+                <h4>Appointment Alerts</h4>
+                <p>Push notifications for upcoming appointments</p>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="appointment-push" checked />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+
+            <div class="toggle-item">
+              <div class="toggle-info">
+                <h4>Medicine Reminders</h4>
+                <p>Reminders to take your medications</p>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="medicine-push" checked />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+
+            <div class="toggle-item">
+              <div class="toggle-info">
+                <h4>Emergency Alerts</h4>
+                <p>Critical health and emergency notifications</p>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="emergency-push" checked />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <button class="btn btn-primary" onclick="saveChanges('notifications')" style="margin-top: var(--space-lg);">Save Preferences</button>
+        </div>
+      </section>
+
+      <!-- Privacy & Security -->
+      <section id="privacy" class="settings-section">
+        <div class="section-header">
+          <h2>Privacy & Security</h2>
+          <p>Manage your privacy settings and security options</p>
+        </div>
+
+        <div class="settings-card">
+          <h3 style="margin-bottom: var(--space-lg);">Privacy</h3>
+          <div class="settings-toggle-group">
+            <div class="toggle-item">
+              <div class="toggle-info">
+                <h4>Profile Visibility</h4>
+                <p>Allow other users to see your name and avatar</p>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="profile-visible" checked />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+
+            <div class="toggle-item">
+              <div class="toggle-info">
+                <h4>Share Health Data with Hospitals</h4>
+                <p>Allow hospitals to access your medical history</p>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="share-health" checked />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+
+            <div class="toggle-item">
+              <div class="toggle-info">
+                <h4>Data Analytics</h4>
+                <p>Help us improve by sharing anonymized usage data</p>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="analytics" />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <hr class="settings-divider" />
+
+          <h3 style="margin-bottom: var(--space-lg);">Two-Factor Authentication</h3>
+          <div class="toggle-item">
+            <div class="toggle-info">
+              <h4>Enable 2FA</h4>
+              <p>Add an extra layer of security to your account</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="two-factor" />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <hr class="settings-divider" />
+
+          <h3 style="margin-bottom: var(--space-lg);">Active Sessions</h3>
+          <div class="session-item">
+            <div class="session-info">
+              <h4>Chrome on Windows</h4>
+              <p>Last active: Today at 2:30 PM</p>
+            </div>
+            <button class="btn btn-sm btn-ghost">Sign Out</button>
+          </div>
+          <button class="btn btn-danger" style="margin-top: var(--space-lg); width: 100%;">Sign Out from All Devices</button>
+        </div>
+      </section>
+
+      <!-- Appearance Settings -->
+      <section id="appearance" class="settings-section">
+        <div class="section-header">
+          <h2>Appearance</h2>
+          <p>Customize how the app looks</p>
+        </div>
+
+        <div class="settings-card">
+          <h3 style="margin-bottom: var(--space-lg);">Theme</h3>
+          <div class="theme-selector">
+            <label class="theme-option">
+              <input type="radio" name="theme" value="light" checked />
+              <span class="theme-label">☀️ Light</span>
+            </label>
+            <label class="theme-option">
+              <input type="radio" name="theme" value="dark" />
+              <span class="theme-label">🌙 Dark</span>
+            </label>
+            <label class="theme-option">
+              <input type="radio" name="theme" value="auto" />
+              <span class="theme-label">⚙️ Auto</span>
+            </label>
+          </div>
+
+          <hr class="settings-divider" />
+
+          <h3 style="margin-bottom: var(--space-lg);">Font Size</h3>
+          <div class="settings-group">
+            <input type="range" id="font-size" min="12" max="18" value="14" class="range-slider" />
+            <div style="display: flex; justify-content: space-between; font-size: 0.875rem; color: var(--text-secondary); margin-top: var(--space-sm);">
+              <span>Small</span>
+              <span id="font-size-value">14px</span>
+              <span>Large</span>
+            </div>
+          </div>
+
+          <button class="btn btn-primary" onclick="saveChanges('appearance')" style="margin-top: var(--space-lg);">Save Preferences</button>
+        </div>
+      </section>
+
+      <!-- Health Data -->
+      <section id="health" class="settings-section">
+        <div class="section-header">
+          <h2>Health Data</h2>
+          <p>Manage your health information and records</p>
+        </div>
+
+        <div class="settings-card">
+          <h3 style="margin-bottom: var(--space-lg);">Blood Type & Allergies</h3>
+          <div class="settings-group">
+            <label for="blood-type">Blood Type</label>
+            <select id="blood-type">
+              <option>O-</option>
+              <option>O+</option>
+              <option>A-</option>
+              <option selected>A+</option>
+              <option>B-</option>
+              <option>B+</option>
+              <option>AB-</option>
+              <option>AB+</option>
+            </select>
+          </div>
+
+          <div class="settings-group">
+            <label for="allergies">Known Allergies</label>
+            <textarea id="allergies" placeholder="Enter any known allergies (e.g., Penicillin, Nuts)" rows="3">Penicillin, Peanuts</textarea>
+          </div>
+
+          <hr class="settings-divider" />
+
+          <h3 style="margin-bottom: var(--space-lg);">Emergency Contact</h3>
+          <div class="settings-group">
+            <label for="emergency-name">Contact Name</label>
+            <input type="text" id="emergency-name" placeholder="Full name" value="Sarah Hassan" />
+          </div>
+          <div class="settings-group">
+            <label for="emergency-phone">Contact Phone</label>
+            <input type="tel" id="emergency-phone" placeholder="+1 (555) 000-0000" value="+92 300-9876543" />
+          </div>
+          <div class="settings-group">
+            <label for="emergency-relation">Relation</label>
+            <input type="text" id="emergency-relation" placeholder="e.g., Spouse, Parent, Sibling" value="Spouse" />
+          </div>
+
+          <button class="btn btn-primary" onclick="saveChanges('health')" style="margin-top: var(--space-lg);">Save Health Info</button>
+        </div>
+      </section>
+
+      <!-- About -->
+      <section id="about" class="settings-section">
+        <div class="section-header">
+          <h2>About</h2>
+          <p>Information about Medix Healthcare</p>
+        </div>
+
+        <div class="settings-card">
+          <div class="about-content">
+            <h3>Medix Healthcare</h3>
+            <p><strong>Version:</strong> 1.0.0</p>
+            <p><strong>Build:</strong> 2026.01.24</p>
+            
+            <hr class="settings-divider" />
+            
+            <h4 style="margin-bottom: var(--space-sm);">About Us</h4>
+            <p style="line-height: 1.6;">
+              Medix is a modern healthcare platform designed to connect patients with quality medical services. 
+              We're committed to making healthcare accessible, affordable, and transparent for everyone.
+            </p>
+
+            <hr class="settings-divider" />
+
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-lg); margin-top: var(--space-lg);">
+              <a href="#" class="link-button">📋 Terms of Service</a>
+              <a href="#" class="link-button">🔒 Privacy Policy</a>
+              <a href="#" class="link-button">🐛 Report a Bug</a>
+              <a href="#" class="link-button">💬 Contact Support</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="settings-card danger-zone">
+          <h3>Danger Zone</h3>
+          <p>These actions cannot be undone.</p>
+          <button class="btn btn-danger" onclick="window.confirm('Are you sure? This will delete all your data permanently.') && alert('Account deletion initiated.')">Delete Account</button>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="js/settings.js"></script>
+</body>
+</html>
