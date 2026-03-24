@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Account – Medix Healthcare</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <style>
+    .btn-spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255,255,255,0.4);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: inline-block;
+    }
+
+    .error-text {
+      display: none;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.8rem;
+      color: var(--danger);
+      margin-top: 6px;
+      font-weight: 500;
+    }
+
+    .password-strength {
+      height: 4px;
+      background: #e9ecef;
+      border-radius: 2px;
+      margin-top: 8px;
+      overflow: hidden;
+    }
+
+    .password-strength-bar {
+      height: 100%;
+      width: 0%;
+      transition: width 0.3s ease, background 0.3s ease;
+      border-radius: 2px;
+    }
+
+    .password-strength.weak .password-strength-bar {
+      width: 25%;
+      background: #ff4757;
+    }
+
+    .password-strength.fair .password-strength-bar {
+      width: 50%;
+      background: #ffa502;
+    }
+
+    .password-strength.good .password-strength-bar {
+      width: 75%;
+      background: #2ed573;
+    }
+
+    .password-strength.strong .password-strength-bar {
+      width: 100%;
+      background: #0d1b3e;
+    }
+
+    .strength-text {
+      font-size: 0.75rem;
+      margin-top: 4px;
+      font-weight: 500;
+      display: none;
+    }
+
+    .strength-text.show {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <main class="auth-page">
+    <!-- Left visual panel -->
+    <div class="auth-visual" aria-hidden="true">
+      <div class="auth-visual-content">
+        <div class="auth-logo">
+          <div class="auth-logo-icon">⚕️</div>
+          <span class="auth-logo-text">Medix</span>
+        </div>
+
+        <h2 class="auth-tagline">
+          Join our<br>
+          <span>healthcare community</span>
+        </h2>
+
+        <div class="auth-features">
+          <div class="auth-feature">
+            <div class="auth-feature-icon">🏥</div>
+            <span>Find top-rated hospitals near you</span>
+          </div>
+          <div class="auth-feature">
+            <div class="auth-feature-icon">📅</div>
+            <span>Book doctor appointments instantly</span>
+          </div>
+          <div class="auth-feature">
+            <div class="auth-feature-icon">💊</div>
+            <span>Never miss your medications</span>
+          </div>
+          <div class="auth-feature">
+            <div class="auth-feature-icon">🚨</div>
+            <span>One-tap emergency assistance</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right form panel -->
+    <div class="auth-panel">
+      <div class="auth-form-wrap">
+        <div class="auth-welcome animate-fade-in-up">
+          <h2>Create Account 🎉</h2>
+          <p>Sign up for Medix to manage your healthcare</p>
+        </div>
+
+        <!-- Alert area -->
+        <div id="formAlert" class="alert" style="display:none" role="alert"></div>
+
+        <form id="signupForm" novalidate autocomplete="off">
+          <!-- Full Name -->
+          <div class="form-group">
+            <label class="form-label" for="fullname">Full Name</label>
+            <div class="input-wrapper">
+              <span class="input-icon">👤</span>
+              <input
+                type="text"
+                id="fullname"
+                name="fullname"
+                class="form-control"
+                placeholder="Your full name"
+                autocomplete="name"
+                required
+              />
+            </div>
+            <span class="error-text" id="fullnameError" role="alert">⚠️ </span>
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label class="form-label" for="email">Email Address</label>
+            <div class="input-wrapper">
+              <span class="input-icon">📧</span>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="form-control"
+                placeholder="you@example.com"
+                autocomplete="email"
+                required
+              />
+            </div>
+            <span class="error-text" id="emailError" role="alert">⚠️ </span>
+          </div>
+
+          <!-- Username -->
+          <div class="form-group">
+            <label class="form-label" for="username">Username</label>
+            <div class="input-wrapper">
+              <span class="input-icon">👤</span>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                class="form-control"
+                placeholder="Choose a unique username"
+                autocomplete="username"
+                required
+              />
+            </div>
+            <span class="error-text" id="usernameError" role="alert">⚠️ </span>
+          </div>
+
+          <!-- Password -->
+          <div class="form-group">
+            <label class="form-label" for="password">Password</label>
+            <div class="input-wrapper">
+              <span class="input-icon">🔒</span>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                class="form-control"
+                placeholder="Create a strong password"
+                autocomplete="new-password"
+                required
+              />
+              <span class="input-suffix" id="togglePassword" title="Toggle password visibility" role="button" tabindex="0">👁️</span>
+            </div>
+            <div class="password-strength weak" id="passwordStrength" style="display:none">
+              <div class="password-strength-bar"></div>
+            </div>
+            <div class="strength-text" id="strengthText">Weak password</div>
+            <span class="error-text" id="passwordError" role="alert">⚠️ </span>
+          </div>
+
+          <!-- Confirm Password -->
+          <div class="form-group">
+            <label class="form-label" for="confirmPassword">Confirm Password</label>
+            <div class="input-wrapper">
+              <span class="input-icon">🔒</span>
+              <input
+                type="password"
+                id="confirmPassword"
+                name="confirmPassword"
+                class="form-control"
+                placeholder="Confirm your password"
+                autocomplete="new-password"
+                required
+              />
+              <span class="input-suffix" id="toggleConfirmPassword" title="Toggle password visibility" role="button" tabindex="0">👁️</span>
+            </div>
+            <span class="error-text" id="confirmPasswordError" role="alert">⚠️ </span>
+          </div>
+
+          <!-- Terms -->
+          <label class="checkbox-label">
+            <input type="checkbox" id="terms" name="terms" required />
+            I agree to the Terms of Service and Privacy Policy
+          </label>
+          <span class="error-text" id="termsError" role="alert">⚠️ </span>
+
+          <!-- Submit -->
+          <button type="submit" id="submitBtn" class="btn btn-primary btn-full btn-lg" style="margin-top: 24px;">
+            ✨ Create Account
+          </button>
+        </form>
+
+        <div class="auth-footer">
+          Already have an account?
+          <a href="login.html">Sign in →</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/app.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

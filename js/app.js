@@ -8,11 +8,12 @@
 /* ── Constants ── */
 const APP_NAME   = 'Medix';
 const STORAGE_KEYS = {
-  USER:         'medix_user',
-  AUTH:         'medix_auth',
-  APPOINTMENTS: 'medix_appointments',
-  REMINDERS:    'medix_reminders',
-  REMEMBER:     'medix_remember',
+  USER:             'medix_user',
+  AUTH:             'medix_auth',
+  APPOINTMENTS:     'medix_appointments',
+  REMINDERS:        'medix_reminders',
+  REMEMBER:         'medix_remember',
+  REGISTERED_USERS: 'medix_registered_users',
 };
 
 /* ── DOM Ready ── */
