@@ -467,9 +467,27 @@ const Booking = {
 ══════════════════════════════════════════ */
 const Hospitals = {
   init() {
-    this.renderHospitals();
+    const city = this.getCurrentCity();
+    let data = getHospitals();
+    if (city) {
+      data = data.filter(h => h.city === city);
+    }
+    this.renderHospitals(data);
     this.setupSearch();
     this.setupFilters();
+  },
+
+  getCurrentCity() {
+    const path = window.location.pathname;
+    if (path.includes('delhi')) return 'Delhi';
+    if (path.includes('kolkata')) return 'Kolkata';
+    if (path.includes('ambala')) return 'Ambala';
+    if (path.includes('bengaluru')) return 'Bengaluru';
+    if (path.includes('chandigarh')) return 'Chandigarh';
+    if (path.includes('chennai')) return 'Chennai';
+    if (path.includes('mumbai')) return 'Mumbai';
+    if (path.includes('pune')) return 'Pune';
+    return null;
   },
 
   renderHospitals(data = getHospitals()) {
@@ -562,23 +580,137 @@ function getReminders() {
 
 function getDoctors() {
   return [
-    { id: 'd1', name: 'Dr. Sarah Chen', specialty: 'Cardiology', hospital: 'Apollo Hospitals', rating: 4.9, fee: 800, exp: 12, emoji: '👩‍⚕️', slots: [{ time: '09:00', booked: true }, { time: '10:00', booked: false }, { time: '11:00', booked: false }, { time: '14:00', booked: false }, { time: '15:00', booked: true }] },
-    { id: 'd2', name: 'Dr. Raj Kumar', specialty: 'Dermatology', hospital: 'Fortis Healthcare', rating: 4.7, fee: 600, exp: 8, emoji: '👨‍⚕️', slots: [{ time: '08:00', booked: false }, { time: '09:30', booked: false }, { time: '11:00', booked: true }, { time: '15:00', booked: false }] },
-    { id: 'd3', name: 'Dr. Priya Nair', specialty: 'Orthopedics', hospital: 'Max Hospital', rating: 4.8, fee: 900, exp: 15, emoji: '👩‍⚕️', slots: [{ time: '10:00', booked: false }, { time: '11:30', booked: false }, { time: '14:30', booked: true }, { time: '16:00', booked: false }] },
-    { id: 'd4', name: 'Dr. Arjun Singh', specialty: 'Neurology', hospital: 'AIIMS Delhi', rating: 4.9, fee: 1200, exp: 20, emoji: '👨‍⚕️', slots: [{ time: '09:00', booked: true }, { time: '10:30', booked: false }, { time: '12:00', booked: false }, { time: '15:30', booked: false }] },
-    { id: 'd5', name: 'Dr. Meena Iyer', specialty: 'Pediatrics', hospital: 'Manipal Hospitals', rating: 4.6, fee: 500, exp: 10, emoji: '👩‍⚕️', slots: [{ time: '08:30', booked: false }, { time: '10:00', booked: false }, { time: '13:00', booked: false }, { time: '16:30', booked: true }] },
-    { id: 'd6', name: 'Dr. Vikram Patel', specialty: 'General Medicine', hospital: 'Apollo Hospitals', rating: 4.5, fee: 400, exp: 6, emoji: '👨‍⚕️', slots: [{ time: '09:00', booked: false }, { time: '11:00', booked: false }, { time: '14:00', booked: false }, { time: '16:00', booked: false }] },
+    // Delhi Doctors - 6
+    { id: 'd1', name: 'Dr. Sarah Chen', specialty: 'Cardiology', hospital: 'Apollo Hospitals', city: 'Delhi', rating: 4.9, fee: 800, exp: 12, emoji: '👩‍⚕️', slots: [{ time: '09:00', booked: true }, { time: '10:00', booked: false }, { time: '11:00', booked: false }, { time: '14:00', booked: false }, { time: '15:00', booked: true }] },
+    { id: 'd2', name: 'Dr. Raj Kumar', specialty: 'Dermatology', hospital: 'Fortis Healthcare', city: 'Delhi', rating: 4.7, fee: 600, exp: 8, emoji: '👨‍⚕️', slots: [{ time: '08:00', booked: false }, { time: '09:30', booked: false }, { time: '11:00', booked: true }, { time: '15:00', booked: false }] },
+    { id: 'd3', name: 'Dr. Priya Nair', specialty: 'Orthopedics', hospital: 'Max Hospital', city: 'Delhi', rating: 4.8, fee: 900, exp: 15, emoji: '👩‍⚕️', slots: [{ time: '10:00', booked: false }, { time: '11:30', booked: false }, { time: '14:30', booked: true }, { time: '16:00', booked: false }] },
+    { id: 'd4', name: 'Dr. Arjun Singh', specialty: 'Neurology', hospital: 'AIIMS Delhi', city: 'Delhi', rating: 4.9, fee: 1200, exp: 20, emoji: '👨‍⚕️', slots: [{ time: '09:00', booked: true }, { time: '10:30', booked: false }, { time: '12:00', booked: false }, { time: '15:30', booked: false }] },
+    { id: 'd5', name: 'Dr. Meena Iyer', specialty: 'Pediatrics', hospital: 'Manipal Hospitals', city: 'Delhi', rating: 4.6, fee: 500, exp: 10, emoji: '👩‍⚕️', slots: [{ time: '08:30', booked: false }, { time: '10:00', booked: false }, { time: '13:00', booked: false }, { time: '16:30', booked: true }] },
+    { id: 'd6', name: 'Dr. Vikram Patel', specialty: 'General Medicine', hospital: 'Apollo Hospitals', city: 'Delhi', rating: 4.5, fee: 400, exp: 6, emoji: '👨‍⚕️', slots: [{ time: '09:00', booked: false }, { time: '11:00', booked: false }, { time: '14:00', booked: false }, { time: '16:00', booked: false }] },
+    
+    // Kolkata Doctors - 6
+    { id: 'kd1', name: 'Dr. Amitava Das', specialty: 'Cardiology', hospital: 'Apollo Gleneagles Hospital', city: 'Kolkata', rating: 4.8, fee: 750, exp: 14, emoji: '👨‍⚕️', slots: [{ time: '09:00', booked: false }, { time: '10:00', booked: true }, { time: '11:00', booked: false }, { time: '14:00', booked: false }] },
+    { id: 'kd2', name: 'Dr. Diya Sen', specialty: 'Orthopedics', hospital: 'Medica Superspeciality Hospital', city: 'Kolkata', rating: 4.7, fee: 850, exp: 11, emoji: '👩‍⚕️', slots: [{ time: '08:00', booked: false }, { time: '09:30', booked: false }, { time: '12:00', booked: true }, { time: '15:00', booked: false }] },
+    { id: 'kd3', name: 'Dr. Ravi Mitra', specialty: 'Neurology', hospital: 'Ruby General Hospital', city: 'Kolkata', rating: 4.6, fee: 900, exp: 16, emoji: '👨‍⚕️', slots: [{ time: '10:00', booked: false }, { time: '11:30', booked: false }, { time: '14:30', booked: false }, { time: '16:00', booked: true }] },
+    { id: 'kd4', name: 'Dr. Asha Gupta', specialty: 'Pediatrics', hospital: 'SSKM Hospital', city: 'Kolkata', rating: 4.7, fee: 550, exp: 9, emoji: '👩‍⚕️', slots: [{ time: '09:00', booked: true }, { time: '10:30', booked: false }, { time: '12:00', booked: false }, { time: '15:30', booked: false }] },
+    { id: 'kd5', name: 'Dr. Sanjay Roy', specialty: 'General Medicine', hospital: 'Peerless Hospital', city: 'Kolkata', rating: 4.5, fee: 450, exp: 7, emoji: '👨‍⚕️', slots: [{ time: '08:30', booked: false }, { time: '10:00', booked: false }, { time: '13:00', booked: true }, { time: '16:30', booked: false }] },
+    { id: 'kd6', name: 'Dr. Neha Chatterjee', specialty: 'Dermatology', hospital: 'Apollo Gleneagles Hospital', city: 'Kolkata', rating: 4.6, fee: 600, exp: 8, emoji: '👩‍⚕️', slots: [{ time: '09:00', booked: false }, { time: '11:00', booked: false }, { time: '14:00', booked: true }, { time: '16:00', booked: false }] },
+    
+    // Ambala Doctors - 6
+    { id: 'ad1', name: 'Dr. Harpreet Singh', specialty: 'Cardiology', hospital: 'Apollo Ambala Hospital', city: 'Ambala', rating: 4.7, fee: 700, exp: 10, emoji: '👨‍⚕️', slots: [{ time: '09:00', booked: false }, { time: '10:00', booked: true }, { time: '11:00', booked: false }, { time: '14:00', booked: false }] },
+    { id: 'ad2', name: 'Dr. Pooja Sharma', specialty: 'Orthopedics', hospital: 'Fortis Hospital Ambala', city: 'Ambala', rating: 4.6, fee: 650, exp: 9, emoji: '👩‍⚕️', slots: [{ time: '08:00', booked: false }, { time: '09:30', booked: false }, { time: '12:00', booked: false }, { time: '15:00', booked: true }] },
+    { id: 'ad3', name: 'Dr. Arun Verma', specialty: 'General Medicine', hospital: 'Civil Hospital Ambala', city: 'Ambala', rating: 4.5, fee: 400, exp: 6, emoji: '👨‍⚕️', slots: [{ time: '10:00', booked: false }, { time: '11:30', booked: true }, { time: '14:30', booked: false }, { time: '16:00', booked: false }] },
+    { id: 'ad4', name: 'Dr. Sunita Malhotra', specialty: 'Pediatrics', hospital: 'Max Hospital Ambala', city: 'Ambala', rating: 4.6, fee: 500, exp: 8, emoji: '👩‍⚕️', slots: [{ time: '09:00', booked: true }, { time: '10:30', booked: false }, { time: '12:00', booked: false }, { time: '15:30', booked: false }] },
+    { id: 'ad5', name: 'Dr. Rajesh Goyal', specialty: 'Surgery', hospital: 'Shivalik Hospital', city: 'Ambala', rating: 4.4, fee: 800, exp: 12, emoji: '👨‍⚕️', slots: [{ time: '08:30', booked: false }, { time: '10:00', booked: false }, { time: '13:00', booked: true }, { time: '16:30', booked: false }] },
+    { id: 'ad6', name: 'Dr. Kavya Garg', specialty: 'Neurology', hospital: 'Eternal Hospital', city: 'Ambala', rating: 4.5, fee: 750, exp: 11, emoji: '👩‍⚕️', slots: [{ time: '09:00', booked: false }, { time: '11:00', booked: false }, { time: '14:00', booked: true }, { time: '16:00', booked: false }] },
+    
+    // Bengaluru Doctors - 6
+    { id: 'bd1', name: 'Dr. Vishwanath Kumar', specialty: 'Cardiology', hospital: 'Apollo Hospitals Bangalore', city: 'Bengaluru', rating: 4.8, fee: 900, exp: 16, emoji: '👨‍⚕️', slots: [{ time: '09:00', booked: true }, { time: '10:00', booked: false }, { time: '11:00', booked: false }, { time: '14:00', booked: false }] },
+    { id: 'bd2', name: 'Dr. Anjali Reddy', specialty: 'Orthopedics', hospital: 'Manipal Hospital Bangalore', city: 'Bengaluru', rating: 4.7, fee: 800, exp: 13, emoji: '👩‍⚕️', slots: [{ time: '08:00', booked: false }, { time: '09:30', booked: false }, { time: '12:00', booked: true }, { time: '15:00', booked: false }] },
+    { id: 'bd3', name: 'Dr. Suresh Murthy', specialty: 'Neurology', hospital: 'BGS Gleneagles Global Hospital', city: 'Bengaluru', rating: 4.8, fee: 950, exp: 18, emoji: '👨‍⚕️', slots: [{ time: '10:00', booked: false }, { time: '11:30', booked: false }, { time: '14:30', booked: false }, { time: '16:00', booked: true }] },
+    { id: 'bd4', name: 'Dr. Priya Sinha', specialty: 'Pediatrics', hospital: 'St. John\'s Medical College Hospital', city: 'Bengaluru', rating: 4.6, fee: 600, exp: 10, emoji: '👩‍⚕️', slots: [{ time: '09:00', booked: false }, { time: '10:30', booked: true }, { time: '12:00', booked: false }, { time: '15:30', booked: false }] },
+    { id: 'bd5', name: 'Dr. Ramesh Naidu', specialty: 'General Medicine', hospital: 'Indraprastha Apollo Hospital Bangalore', city: 'Bengaluru', rating: 4.5, fee: 500, exp: 8, emoji: '👨‍⚕️', slots: [{ time: '08:30', booked: false }, { time: '10:00', booked: false }, { time: '13:00', booked: true }, { time: '16:30', booked: false }] },
+    { id: 'bd6', name: 'Dr. Deepika Joshi', specialty: 'Oncology', hospital: 'Apollo Hospitals Bangalore', city: 'Bengaluru', rating: 4.7, fee: 1000, exp: 15, emoji: '👩‍⚕️', slots: [{ time: '09:00', booked: false }, { time: '11:00', booked: false }, { time: '14:00', booked: true }, { time: '16:00', booked: false }] },
+    
+    // Chandigarh Doctors - 6
+    { id: 'cd1', name: 'Dr. Gautam Sharma', specialty: 'Cardiology', hospital: 'Fortis Hospital Chandigarh', city: 'Chandigarh', rating: 4.7, fee: 750, exp: 12, emoji: '👨‍⚕️', slots: [{ time: '09:00', booked: false }, { time: '10:00', booked: true }, { time: '11:00', booked: false }, { time: '14:00', booked: false }] },
+    { id: 'cd2', name: 'Dr. Nitisha Bhat', specialty: 'Orthopedics', hospital: 'Max Hospital Chandigarh', city: 'Chandigarh', rating: 4.6, fee: 700, exp: 10, emoji: '👩‍⚕️', slots: [{ time: '08:00', booked: false }, { time: '09:30', booked: false }, { time: '12:00', booked: false }, { time: '15:00', booked: true }] },
+    { id: 'cd3', name: 'Dr. Ashok Kapoor', specialty: 'Neurology', hospital: 'PGIMER Chandigarh', city: 'Chandigarh', rating: 4.8, fee: 1100, exp: 19, emoji: '👨‍⚕️', slots: [{ time: '10:00', booked: false }, { time: '11:30', booked: true }, { time: '14:30', booked: false }, { time: '16:00', booked: false }] },
+    { id: 'cd4', name: 'Dr. Simran Kaur', specialty: 'Pediatrics', hospital: 'Apollo Chandigarh Hospital', city: 'Chandigarh', rating: 4.5, fee: 520, exp: 7, emoji: '👩‍⚕️', slots: [{ time: '09:00', booked: true }, { time: '10:30', booked: false }, { time: '12:00', booked: false }, { time: '15:30', booked: false }] },
+    { id: 'cd5', name: 'Dr. Mukesh Bansal', specialty: 'General Medicine', hospital: 'Stellar Hospital', city: 'Chandigarh', rating: 4.4, fee: 450, exp: 6, emoji: '👨‍⚕️', slots: [{ time: '08:30', booked: false }, { time: '10:00', booked: false }, { time: '13:00', booked: true }, { time: '16:30', booked: false }] },
+    { id: 'cd6', name: 'Dr. Hema Anand', specialty: 'Oncology', hospital: 'HCG Hospital Chandigarh', city: 'Chandigarh', rating: 4.6, fee: 900, exp: 14, emoji: '👩‍⚕️', slots: [{ time: '09:00', booked: false }, { time: '11:00', booked: false }, { time: '14:00', booked: true }, { time: '16:00', booked: false }] },
+    
+    // Chennai Doctors - 6
+    { id: 'cnd1', name: 'Dr. Balaji Iyer', specialty: 'Cardiology', hospital: 'Apollo Hospital Chennai', city: 'Chennai', rating: 4.9, fee: 1000, exp: 18, emoji: '👨‍⚕️', slots: [{ time: '09:00', booked: true }, { time: '10:00', booked: false }, { time: '11:00', booked: false }, { time: '14:00', booked: false }] },
+    { id: 'cnd2', name: 'Dr. Meera Krishnan', specialty: 'Orthopedics', hospital: 'Fortis Malar Hospital', city: 'Chennai', rating: 4.7, fee: 850, exp: 13, emoji: '👩‍⚕️', slots: [{ time: '08:00', booked: false }, { time: '09:30', booked: false }, { time: '12:00', booked: true }, { time: '15:00', booked: false }] },
+    { id: 'cnd3', name: 'Dr. Raghavan Chari', specialty: 'Neurology', hospital: 'Gleneagles Global Hospital Chennai', city: 'Chennai', rating: 4.8, fee: 920, exp: 17, emoji: '👨‍⚕️', slots: [{ time: '10:00', booked: false }, { time: '11:30', booked: false }, { time: '14:30', booked: false }, { time: '16:00', booked: true }] },
+    { id: 'cnd4', name: 'Dr. Shruti Menon', specialty: 'Pediatrics', hospital: 'Kauvery Hospital', city: 'Chennai', rating: 4.6, fee: 600, exp: 9, emoji: '👩‍⚕️', slots: [{ time: '09:00', booked: false }, { time: '10:30', booked: true }, { time: '12:00', booked: false }, { time: '15:30', booked: false }] },
+    { id: 'cnd5', name: 'Dr. Arjun Srinath', specialty: 'General Medicine', hospital: 'Government General Hospital', city: 'Chennai', rating: 4.5, fee: 400, exp: 7, emoji: '👨‍⚕️', slots: [{ time: '08:30', booked: false }, { time: '10:00', booked: false }, { time: '13:00', booked: true }, { time: '16:30', booked: false }] },
+    { id: 'cnd6', name: 'Dr. Divya Sharma', specialty: 'Oncology', hospital: 'Sri Ramakrishna Hospital', city: 'Chennai', rating: 4.6, fee: 950, exp: 15, emoji: '👩‍⚕️', slots: [{ time: '09:00', booked: false }, { time: '11:00', booked: false }, { time: '14:00', booked: true }, { time: '16:00', booked: false }] },
+    
+    // Mumbai Doctors - 6
+    { id: 'md1', name: 'Dr. Rajesh Desai', specialty: 'Cardiology', hospital: 'Lilavati Hospital', city: 'Mumbai', rating: 4.9, fee: 1100, exp: 19, emoji: '👨‍⚕️', slots: [{ time: '09:00', booked: true }, { time: '10:00', booked: false }, { time: '11:00', booked: false }, { time: '14:00', booked: false }] },
+    { id: 'md2', name: 'Dr. Aisha Khan', specialty: 'Orthopedics', hospital: 'Fortis Hospital Mumbai', city: 'Mumbai', rating: 4.7, fee: 900, exp: 14, emoji: '👩‍⚕️', slots: [{ time: '08:00', booked: false }, { time: '09:30', booked: false }, { time: '12:00', booked: true }, { time: '15:00', booked: false }] },
+    { id: 'md3', name: 'Dr. Nitin Vora', specialty: 'Neurology', hospital: 'Breach Candy Hospital', city: 'Mumbai', rating: 4.8, fee: 1000, exp: 17, emoji: '👨‍⚕️', slots: [{ time: '10:00', booked: false }, { time: '11:30', booked: false }, { time: '14:30', booked: false }, { time: '16:00', booked: true }] },
+    { id: 'md4', name: 'Dr. Priya Oak', specialty: 'Pediatrics', hospital: 'Kokilaben Dhirubhai Ambani Hospital', city: 'Mumbai', rating: 4.6, fee: 700, exp: 11, emoji: '👩‍⚕️', slots: [{ time: '09:00', booked: false }, { time: '10:30', booked: true }, { time: '12:00', booked: false }, { time: '15:30', booked: false }] },
+    { id: 'md5', name: 'Dr. Sanjay Mehta', specialty: 'General Medicine', hospital: 'Sir H.N. Reliance Foundation Hospital', city: 'Mumbai', rating: 4.5, fee: 550, exp: 9, emoji: '👨‍⚕️', slots: [{ time: '08:30', booked: false }, { time: '10:00', booked: false }, { time: '13:00', booked: true }, { time: '16:30', booked: false }] },
+    { id: 'md6', name: 'Dr. Zara Kapadia', specialty: 'Oncology', hospital: 'Bombay Hospital Institute of Medical Sciences', city: 'Mumbai', rating: 4.7, fee: 1050, exp: 16, emoji: '👩‍⚕️', slots: [{ time: '09:00', booked: false }, { time: '11:00', booked: false }, { time: '14:00', booked: true }, { time: '16:00', booked: false }] },
+    
+    // Pune Doctors - 6
+    { id: 'pd1', name: 'Dr. Atul Kulkarni', specialty: 'Cardiology', hospital: 'Lilavati Hospital Pune', city: 'Pune', rating: 4.8, fee: 850, exp: 14, emoji: '👨‍⚕️', slots: [{ time: '09:00', booked: false }, { time: '10:00', booked: true }, { time: '11:00', booked: false }, { time: '14:00', booked: false }] },
+    { id: 'pd2', name: 'Dr. Neha Patni', specialty: 'Orthopedics', hospital: 'Fortis Hospital Pune', city: 'Pune', rating: 4.6, fee: 750, exp: 11, emoji: '👩‍⚕️', slots: [{ time: '08:00', booked: false }, { time: '09:30', booked: false }, { time: '12:00', booked: false }, { time: '15:00', booked: true }] },
+    { id: 'pd3', name: 'Dr. Vikram Kesari', specialty: 'Neurology', hospital: 'Ruby Hall Clinic', city: 'Pune', rating: 4.7, fee: 900, exp: 15, emoji: '👨‍⚕️', slots: [{ time: '10:00', booked: false }, { time: '11:30', booked: true }, { time: '14:30', booked: false }, { time: '16:00', booked: false }] },
+    { id: 'pd4', name: 'Dr. Anjali More', specialty: 'Pediatrics', hospital: 'Noble Hospital', city: 'Pune', rating: 4.5, fee: 550, exp: 8, emoji: '👩‍⚕️', slots: [{ time: '09:00', booked: true }, { time: '10:30', booked: false }, { time: '12:00', booked: false }, { time: '15:30', booked: false }] },
+    { id: 'pd5', name: 'Dr. Raghu Deshmukh', specialty: 'General Medicine', hospital: 'Sahyadri Hospital', city: 'Pune', rating: 4.4, fee: 450, exp: 6, emoji: '👨‍⚕️', slots: [{ time: '08:30', booked: false }, { time: '10:00', booked: false }, { time: '13:00', booked: true }, { time: '16:30', booked: false }] },
+    { id: 'pd6', name: 'Dr. Kavya Joshi', specialty: 'Oncology', hospital: 'Continental Hospital', city: 'Pune', rating: 4.6, fee: 900, exp: 13, emoji: '👩‍⚕️', slots: [{ time: '09:00', booked: false }, { time: '11:00', booked: false }, { time: '14:00', booked: true }, { time: '16:00', booked: false }] },
   ];
 }
 
 function getHospitals() {
   return [
-    { name: 'Apollo Hospitals', location: 'Sarita Vihar, New Delhi', rating: 4.8, reviews: 2840, type: 'Private', beds: 550, departments: 52, doctorsAvailable: 28, specialties: ['Cardiology', 'Oncology', 'Neurology'], emoji: '🏥' },
-    { name: 'AIIMS New Delhi', location: 'Ansari Nagar, New Delhi', rating: 4.9, reviews: 5200, type: 'Government', beds: 1200, departments: 80, doctorsAvailable: 45, specialties: ['All Specialties', 'Research', 'Trauma'], emoji: '🏛️' },
-    { name: 'Fortis Healthcare', location: 'Vasant Kunj, New Delhi', rating: 4.6, reviews: 1980, type: 'Private', beds: 400, departments: 45, doctorsAvailable: 22, specialties: ['Cardiology', 'Orthopedics', 'Dermatology'], emoji: '🏥' },
-    { name: 'Max Super Speciality', location: 'Saket, New Delhi', rating: 4.7, reviews: 3100, type: 'Private', beds: 500, departments: 50, doctorsAvailable: 31, specialties: ['Neurology', 'Oncology', 'Pediatrics'], emoji: '⚕️' },
-    { name: 'Manipal Hospitals', location: 'Dwarka, New Delhi', rating: 4.5, reviews: 1540, type: 'Private', beds: 380, departments: 40, doctorsAvailable: 18, specialties: ['Pediatrics', 'Gynecology', 'Orthopedics'], emoji: '🏥' },
-    { name: 'Safdarjung Hospital', location: 'Safdarjung, New Delhi', rating: 4.3, reviews: 890, type: 'Government', beds: 1500, departments: 60, doctorsAvailable: 35, specialties: ['General Medicine', 'Surgery', 'Emergency'], emoji: '🏛️' },
+    // Delhi - 6 hospitals
+    { name: 'Apollo Hospitals', location: 'Sarita Vihar, New Delhi', city: 'Delhi', rating: 4.8, reviews: 2840, type: 'Private', beds: 550, departments: 52, doctorsAvailable: 28, specialties: ['Cardiology', 'Oncology', 'Neurology'], emoji: '🏥' },
+    { name: 'AIIMS New Delhi', location: 'Ansari Nagar, New Delhi', city: 'Delhi', rating: 4.9, reviews: 5200, type: 'Government', beds: 1200, departments: 80, doctorsAvailable: 45, specialties: ['All Specialties', 'Research', 'Trauma'], emoji: '🏛️' },
+    { name: 'Fortis Healthcare', location: 'Vasant Kunj, New Delhi', city: 'Delhi', rating: 4.6, reviews: 1980, type: 'Private', beds: 400, departments: 45, doctorsAvailable: 22, specialties: ['Cardiology', 'Orthopedics', 'Dermatology'], emoji: '🏥' },
+    { name: 'Max Super Speciality', location: 'Saket, New Delhi', city: 'Delhi', rating: 4.7, reviews: 3100, type: 'Private', beds: 500, departments: 50, doctorsAvailable: 31, specialties: ['Neurology', 'Oncology', 'Pediatrics'], emoji: '⚕️' },
+    { name: 'Manipal Hospitals', location: 'Dwarka, New Delhi', city: 'Delhi', rating: 4.5, reviews: 1540, type: 'Private', beds: 380, departments: 40, doctorsAvailable: 18, specialties: ['Pediatrics', 'Gynecology', 'Orthopedics'], emoji: '🏥' },
+    { name: 'Safdarjung Hospital', location: 'Safdarjung, New Delhi', city: 'Delhi', rating: 4.3, reviews: 890, type: 'Government', beds: 1500, departments: 60, doctorsAvailable: 35, specialties: ['General Medicine', 'Surgery', 'Emergency'], emoji: '🏛️' },
+    
+    // Kolkata - 6 hospitals
+    { name: 'Apollo Gleneagles Hospital', location: 'Alipore, Kolkata', city: 'Kolkata', rating: 4.7, reviews: 2100, type: 'Private', beds: 480, departments: 48, doctorsAvailable: 26, specialties: ['Cardiology', 'Oncology', 'Neurology'], emoji: '🏥' },
+    { name: 'SSKM Hospital', location: 'Raja Rammohan Roy Sarani, Kolkata', city: 'Kolkata', rating: 4.6, reviews: 1800, type: 'Government', beds: 900, departments: 65, doctorsAvailable: 38, specialties: ['General Medicine', 'Surgery', 'Pediatrics'], emoji: '🏛️' },
+    { name: 'Medica Superspeciality Hospital', location: 'Mukundapur, Kolkata', city: 'Kolkata', rating: 4.8, reviews: 2400, type: 'Private', beds: 520, departments: 52, doctorsAvailable: 32, specialties: ['Cardiology', 'Orthopedics', 'Neurology'], emoji: '⚕️' },
+    { name: 'Ruby General Hospital', location: 'AJC Bose Road, Kolkata', city: 'Kolkata', rating: 4.5, reviews: 1600, type: 'Private', beds: 350, departments: 42, doctorsAvailable: 20, specialties: ['Dermatology', 'Pediatrics', 'Gynecology'], emoji: '🏥' },
+    { name: 'Institute of Post Graduate Medical Education & Research', location: 'Kolkata', city: 'Kolkata', rating: 4.7, reviews: 1950, type: 'Government', beds: 750, departments: 55, doctorsAvailable: 40, specialties: ['All Specialties', 'Research', 'Teaching'], emoji: '🏛️' },
+    { name: 'Peerless Hospital', location: 'Kolkata', city: 'Kolkata', rating: 4.6, reviews: 1700, type: 'Private', beds: 420, departments: 45, doctorsAvailable: 24, specialties: ['Cardiology', 'Neurology', 'Orthopedics'], emoji: '🏥' },
+    
+    // Ambala - 6 hospitals
+    { name: 'Apollo Ambala Hospital', location: 'Sector 36, Ambala', city: 'Ambala', rating: 4.7, reviews: 1200, type: 'Private', beds: 300, departments: 35, doctorsAvailable: 18, specialties: ['Cardiology', 'Orthopedics', 'Neurology'], emoji: '🏥' },
+    { name: 'Civil Hospital Ambala', location: 'Ambala City, Ambala', city: 'Ambala', rating: 4.4, reviews: 890, type: 'Government', beds: 600, departments: 45, doctorsAvailable: 25, specialties: ['General Medicine', 'Surgery', 'Pediatrics'], emoji: '🏛️' },
+    { name: 'Fortis Hospital Ambala', location: 'Ambala', city: 'Ambala', rating: 4.6, reviews: 1100, type: 'Private', beds: 280, departments: 40, doctorsAvailable: 16, specialties: ['Cardiology', 'Dermatology', 'Orthopedics'], emoji: '⚕️' },
+    { name: 'Shivalik Hospital', location: 'Ambala', city: 'Ambala', rating: 4.5, reviews: 950, type: 'Private', beds: 250, departments: 32, doctorsAvailable: 14, specialties: ['Pediatrics', 'Gynecology', 'General Medicine'], emoji: '🏥' },
+    { name: 'Max Hospital Ambala', location: 'Ambala', city: 'Ambala', rating: 4.6, reviews: 1050, type: 'Private', beds: 320, departments: 38, doctorsAvailable: 19, specialties: ['Orthopedics', 'Neurology', 'Cardiology'], emoji: '🏥' },
+    { name: 'Eternal Hospital', location: 'Ambala Cantonment, Ambala', city: 'Ambala', rating: 4.5, reviews: 880, type: 'Private', beds: 220, departments: 30, doctorsAvailable: 13, specialties: ['General Medicine', 'Surgery', 'ENT'], emoji: '🏥' },
+    
+    // Bengaluru - 6 hospitals
+    { name: 'Apollo Hospitals Bangalore', location: 'Bannerghatta Road, Bengaluru', city: 'Bengaluru', rating: 4.8, reviews: 3200, type: 'Private', beds: 600, departments: 55, doctorsAvailable: 35, specialties: ['Cardiology', 'Oncology', 'Neurology'], emoji: '🏥' },
+    { name: 'Manipal Hospital Bangalore', location: 'Old Airport Road, Bengaluru', city: 'Bengaluru', rating: 4.7, reviews: 2800, type: 'Private', beds: 550, departments: 50, doctorsAvailable: 32, specialties: ['Orthopedics', 'Cardiology', 'Pediatrics'], emoji: '⚕️' },
+    { name: 'St. John\'s Medical College Hospital', location: 'Bangalore', city: 'Bengaluru', rating: 4.6, reviews: 1900, type: 'Private', beds: 420, departments: 45, doctorsAvailable: 25, specialties: ['Cardiology', 'Neurology', 'Pediatrics'], emoji: '🏥' },
+    { name: 'Multispeciality Hospital', location: 'Whitefield, Bengaluru', city: 'Bengaluru', rating: 4.5, reviews: 1600, type: 'Private', beds: 380, departments: 40, doctorsAvailable: 22, specialties: ['General Medicine', 'Surgery', 'Orthopedics'], emoji: '🏥' },
+    { name: 'BGS Gleneagles Global Hospital', location: 'Domlur, Bengaluru', city: 'Bengaluru', rating: 4.7, reviews: 2400, type: 'Private', beds: 480, departments: 48, doctorsAvailable: 28, specialties: ['Cardiology', 'Neurology', 'Oncology'], emoji: '⚕️' },
+    { name: 'Indraprastha Apollo Hospital Bangalore', location: 'Bengaluru', city: 'Bengaluru', rating: 4.6, reviews: 2100, type: 'Private', beds: 500, departments: 52, doctorsAvailable: 30, specialties: ['All Specialties', 'Trauma', 'Emergency'], emoji: '🏥' },
+    
+    // Chandigarh - 6 hospitals
+    { name: 'Fortis Hospital Chandigarh', location: 'Industrial Area, Chandigarh', city: 'Chandigarh', rating: 4.7, reviews: 1400, type: 'Private', beds: 350, departments: 42, doctorsAvailable: 22, specialties: ['Cardiology', 'Orthopedics', 'Neurology'], emoji: '🏥' },
+    { name: 'PGIMER Chandigarh', location: 'Sector 12, Chandigarh', city: 'Chandigarh', rating: 4.8, reviews: 2200, type: 'Government', beds: 800, departments: 60, doctorsAvailable: 40, specialties: ['All Specialties', 'Research', 'Teaching'], emoji: '🏛️' },
+    { name: 'Max Hospital Chandigarh', location: 'Chandigarh', city: 'Chandigarh', rating: 4.6, reviews: 1300, type: 'Private', beds: 320, departments: 40, doctorsAvailable: 20, specialties: ['Pediat­rics', 'Gynecology', 'General Medicine'], emoji: '⚕️' },
+    { name: 'Apollo Chandigarh Hospital', location: 'Sector 25, Chandigarh', city: 'Chandigarh', rating: 4.6, reviews: 1250, type: 'Private', beds: 340, departments: 41, doctorsAvailable: 21, specialties: ['Cardiology', 'Dermatology', 'Orthopedics'], emoji: '🏥' },
+    { name: 'Stellar Hospital', location: 'Chandigarh', city: 'Chandigarh', rating: 4.5, reviews: 980, type: 'Private', beds: 280, departments: 35, doctorsAvailable: 17, specialties: ['General Medicine', 'Surgery', 'Dermatology'], emoji: '🏥' },
+    { name: 'HCG Hospital Chandigarh', location: 'Chandigarh', city: 'Chandigarh', rating: 4.6, reviews: 1100, type: 'Private', beds: 300, departments: 38, doctorsAvailable: 19, specialties: ['Oncology', 'Cardiology', 'Neurology'], emoji: '🏥' },
+    
+    // Chennai - 6 hospitals
+    { name: 'Apollo Hospital Chennai', location: 'Greams Road, Chennai', city: 'Chennai', rating: 4.8, reviews: 3400, type: 'Private', beds: 650, departments: 58, doctorsAvailable: 38, specialties: ['Cardiology', 'Oncology', 'Orthopedics'], emoji: '🏥' },
+    { name: 'Fortis Malar Hospital', location: 'Adyar, Chennai', city: 'Chennai', rating: 4.7, reviews: 2600, type: 'Private', beds: 520, departments: 50, doctorsAvailable: 30, specialties: ['Cardiology', 'Neurology', 'Pediatrics'], emoji: '⚕️' },
+    { name: 'Government General Hospital', location: 'Parry\'s, Chennai', city: 'Chennai', rating: 4.5, reviews: 1800, type: 'Government', beds: 1000, departments: 65, doctorsAvailable: 42, specialties: ['All Specialties', 'Emergency', 'Trauma'], emoji: '🏛️' },
+    { name: 'Gleneagles Global Hospital Chennai', location: 'Perumbakkam, Chennai', city: 'Chennai', rating: 4.7, reviews: 2300, type: 'Private', beds: 480, departments: 48, doctorsAvailable: 27, specialties: ['Cardiology', 'Orthopedics', 'Neurology'], emoji: '🏥' },
+    { name: 'Kauvery Hospital', location: 'Neelankarai, Chennai', city: 'Chennai', rating: 4.6, reviews: 2000, type: 'Private', beds: 440, departments: 45, doctorsAvailable: 25, specialties: ['Cardiology', 'Neurology', 'Pediatrics'], emoji: '🏥' },
+    { name: 'Sri Ramakrishna Hospital', location: 'Porur, Chennai', city: 'Chennai', rating: 4.5, reviews: 1700, type: 'Private', beds: 400, departments: 42, doctorsAvailable: 23, specialties: ['General Medicine', 'Surgery', 'Orthopedics'], emoji: '🏥' },
+    
+    // Mumbai - 6 hospitals
+    { name: 'Lilavati Hospital', location: 'Bandra, Mumbai', city: 'Mumbai', rating: 4.8, reviews: 3600, type: 'Private', beds: 700, departments: 60, doctorsAvailable: 40, specialties: ['Cardiology', 'Oncology', 'Neurology'], emoji: '🏥' },
+    { name: 'Fortis Hospital Mumbai', location: 'Mulund, Mumbai', city: 'Mumbai', rating: 4.7, reviews: 2900, type: 'Private', beds: 580, departments: 52, doctorsAvailable: 34, specialties: ['Cardiology', 'Orthopedics', 'Pediatrics'], emoji: '⚕️' },
+    { name: 'Breach Candy Hospital', location: 'Cumballa Hill, Mumbai', city: 'Mumbai', rating: 4.7, reviews: 2700, type: 'Private', beds: 520, departments: 50, doctorsAvailable: 31, specialties: ['Cardiology', 'Neurology', 'Orthopedics'], emoji: '🏥' },
+    { name: 'Sir H.N. Reliance Foundation Hospital', location: 'Girgaum, Mumbai', city: 'Mumbai', rating: 4.8, reviews: 3200, type: 'Private', beds: 600, departments: 55, doctorsAvailable: 36, specialties: ['All Specialties', 'Trauma', 'Emergency'], emoji: '🏥' },
+    { name: 'Kokilaben Dhirubhai Ambani Hospital', location: 'Mumbai', city: 'Mumbai', rating: 4.8, reviews: 3100, type: 'Private', beds: 620, departments: 54, doctorsAvailable: 37, specialties: ['Cardiology', 'Oncology', 'Neurology'], emoji: '⚕️' },
+    { name: 'Bombay Hospital Institute of Medical Sciences', location: 'Fort, Mumbai', city: 'Mumbai', rating: 4.6, reviews: 2200, type: 'Private', beds: 450, departments: 46, doctorsAvailable: 26, specialties: ['Cardiology', 'Pediatrics', 'General Medicine'], emoji: '🏥' },
+    
+    // Pune - 6 hospitals
+    { name: 'Lilavati Hospital Pune', location: 'Kalyani Nagar, Pune', city: 'Pune', rating: 4.7, reviews: 2100, type: 'Private', beds: 480, departments: 48, doctorsAvailable: 28, specialties: ['Cardiology', 'Orthopedics', 'Neurology'], emoji: '🏥' },
+    { name: 'Fortis Hospital Pune', location: 'Vishrambag, Pune', city: 'Pune', rating: 4.6, reviews: 1900, type: 'Private', beds: 420, departments: 44, doctorsAvailable: 24, specialties: ['Cardiology', 'Pediatrics', 'Neurology'], emoji: '⚕️' },
+    { name: 'Ruby Hall Clinic', location: 'Pune', city: 'Pune', rating: 4.7, reviews: 2000, type: 'Private', beds: 500, departments: 50, doctorsAvailable: 29, specialties: ['All Specialties', 'Orthopedics', 'Cardiology'], emoji: '🏥' },
+    { name: 'Noble Hospital', location: 'Pune', city: 'Pune', rating: 4.5, reviews: 1600, type: 'Private', beds: 380, departments: 40, doctorsAvailable: 21, specialties: ['Cardiology', 'General Medicine', 'Pediatrics'], emoji: '🏥' },
+    { name: 'Sahyadri Hospital', location: 'Pune', city: 'Pune', rating: 4.6, reviews: 1750, type: 'Private', beds: 440, departments: 42, doctorsAvailable: 25, specialties: ['Neurology', 'Orthopedics', 'General Medicine'], emoji: '🏥' },
+    { name: 'Continental Hospital', location: 'Pune', city: 'Pune', rating: 4.5, reviews: 1550, type: 'Private', beds: 400, departments: 41, doctorsAvailable: 23, specialties: ['Cardiology', 'Pediatrics', 'Gynecology'], emoji: '🏥' },
   ];
 }
 
@@ -588,7 +720,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (page === 'dashboard.html') Dashboard.init();
   if (page === 'reminders.html') Reminders.init();
-  if (page === 'appointments.html') Booking.init();
+  // Note: appointments.html calls Booking.init() explicitly
   if (page === 'hospitals.html') Hospitals.init();
 });
 

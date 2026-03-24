@@ -124,13 +124,13 @@
       }
 
       document.getElementById('sortRating')?.addEventListener('click', () => {
-        const data = getHospitals().filter(h => h.city === 'Bangalore').sort((a, b) => b.rating - a.rating);
+        const data = getHospitals().filter(h => h.city === 'Bengaluru').sort((a, b) => b.rating - a.rating);
         Hospitals.renderHospitals(data);
         setTimeout(updateCount, 100);
       });
       
       document.getElementById('sortBeds')?.addEventListener('click', () => {
-        const data = getHospitals().filter(h => h.city === 'Bangalore').sort((a, b) => b.beds - a.beds);
+        const data = getHospitals().filter(h => h.city === 'Bengaluru').sort((a, b) => b.beds - a.beds);
         Hospitals.renderHospitals(data);
         setTimeout(updateCount, 100);
       });
