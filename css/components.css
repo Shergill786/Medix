@@ -1183,7 +1183,7 @@
   margin-bottom: var(--space-md);
   opacity: 0.4;
 }
-
+/* 
 /* ══════════════════════════════════════════
    FOOTER
 ══════════════════════════════════════════ */
@@ -1230,7 +1230,7 @@
   justify-content: space-between;
   align-items: center;
   font-size: 0.8125rem;
-}
+} */
 
 /* ══════════════════════════════════════════
    SETTINGS PAGE

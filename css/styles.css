@@ -918,7 +918,7 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 16px 48px rgba(255,71,87,0.4);
 }
 
-/* ── Footer ── */
+── Footer ──
 .footer {
   background: #0d1b3e;
   color: white;
@@ -1184,4 +1184,24 @@ h1, h2, h3, h4, h5, h6 {
     opacity: 1;
     transform: translateY(0);
   }
+}
+/* ── Footer ── */
+.footer {
+  background: #0b1f3a; /* deep navy */
+  color: #cbd5e1;
+  text-align: center;
+  padding: 40px 20px 30px;
+  margin-top: 60px;
+}
+
+.footer-line {
+  height: 1px;
+  background: rgba(255,255,255,0.1);
+  width: 90%;
+  margin: 0 auto 25px;
+}
+
+.footer-content {
+  font-size: 14px;
+  color: #94a3b8;
 }
