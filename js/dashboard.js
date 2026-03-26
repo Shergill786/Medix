@@ -42,7 +42,15 @@ const SAMPLE_APPOINTMENTS = [
 /* ══════════════════════════════════════════
    DASHBOARD PAGE
 ══════════════════════════════════════════ */
+/**
+ * Dashboard module - handles dashboard initialization and content loading
+ * Displays statistics, upcoming appointments, and notifications
+ */
 const Dashboard = {
+  /**
+   * Initialize dashboard on page load
+   * Loads stats, appointments, notifications, and mobile sidebar
+   */
   init() {
     this.loadStats();
     this.loadAppointments();
@@ -50,6 +58,10 @@ const Dashboard = {
     this.initSidebarMobile();
   },
 
+  /**
+   * Load and display dashboard statistics
+   * Animates count-up effect for appointments, reminders, and hospitals
+   */
   loadStats() {
     const appointments = getAppointments();
     const upcoming = appointments.filter(a => a.status === 'upcoming').length;
@@ -69,6 +81,12 @@ const Dashboard = {
     });
   },
 
+  /**
+   * Animate counting from 0 to target number
+   * Used for statistics display with smooth increment animation
+   * @param {Element} el - DOM element to update
+   * @param {number} target - Final number to count to
+   */
   animateCount(el, target) {
     let current = 0;
     const step  = Math.ceil(target / 30);
@@ -79,6 +97,10 @@ const Dashboard = {
     }, 40);
   },
 
+  /**
+   * Load and display upcoming appointments
+   * Shows next 5 upcoming appointments with doctor, specialty, and time info
+   */
   loadAppointments() {
     const container = document.querySelector('#upcomingAppointments');
     if (!container) return;
@@ -109,6 +131,10 @@ const Dashboard = {
     `).join('');
   },
 
+  /**
+   * Load and display system notifications
+   * Shows medicine reminders, appointment alerts, and lab results
+   */
   loadNotifications() {
     const container = document.querySelector('#notificationsList');
     if (!container) return;
@@ -132,6 +158,10 @@ const Dashboard = {
     `).join('');
   },
 
+  /**
+   * Setup mobile sidebar toggle and overlay
+   * Creates touch-friendly sidebar with semi-transparent overlay backdrop
+   */
   initSidebarMobile() {
     const toggle  = document.querySelector('.sidebar-toggle');
     const sidebar = document.querySelector('.sidebar');
@@ -160,7 +190,15 @@ const Dashboard = {
 /* ══════════════════════════════════════════
    REMINDERS PAGE
 ══════════════════════════════════════════ */
+/**
+ * Reminders module - manage medicine and health reminders
+ * Allows users to add, delete, and mark reminders as taken
+ */
 const Reminders = {
+  /**
+   * Initialize reminders page
+   * Renders reminder list, sets up form handlers and search
+   */
   init() {
     this.render();
     this.setupForm();
@@ -173,6 +211,12 @@ const Reminders = {
 
     let reminders = getReminders();
     if (filter) {
+  /**
+   * Generate HTML for a single reminder item
+   * @param {Object} r - Reminder object
+   * @param {number} i - Item index for animation delay
+   * @returns {string} HTML string for reminder item
+   */
       const q = filter.toLowerCase();
       reminders = reminders.filter(r =>
         r.name.toLowerCase().includes(q) ||
@@ -195,6 +239,12 @@ const Reminders = {
     this.attachItemEvents();
   },
 
+  /**
+   * Generate HTML for a single reminder item
+   * @param {Object} r - Reminder object with name, time, dosage, etc.
+   * @param {number} i - Item index for staggered animation delay
+   * @returns {string} HTML string for reminder item
+   */
   renderItem(r, i) {
     return `
       <div class="reminder-item" data-id="${r.id}" style="animation-delay:${i * 0.05}s">
@@ -218,6 +268,10 @@ const Reminders = {
     `;
   },
 
+  /**
+   * Attach event listeners to reminder action buttons
+   * Enables take/untake and delete functionality
+   */
   attachItemEvents() {
     document.querySelectorAll('.take-btn').forEach(btn => {
       btn.addEventListener('click', () => this.toggleTaken(btn.dataset.id));
@@ -227,6 +281,10 @@ const Reminders = {
     });
   },
 
+  /**
+   * Setup reminder creation form handling
+   * Validates input and saves new reminders to storage
+   */
   setupForm() {
     const form = document.getElementById('reminderForm');
     if (!form) return;
@@ -266,31 +324,47 @@ const Reminders = {
     });
   },
 
+  /**
+   * Setup search/filter functionality for reminders
+   * Filters list in real-time as user types with debounce delay
+   */
   setupSearch() {
     const input = document.getElementById('reminderSearch');
     if (!input) return;
+    // Use debounce to limit render calls while typing
     input.addEventListener('input', Utils.debounce(() => this.render(input.value), 250));
   },
 
+  /**
+   * Toggle reminder completion status (taken/not taken)
+   * @param {string} id - Reminder ID
+   */
   toggleTaken(id) {
     const reminders = getReminders();
     const idx = reminders.findIndex(r => r.id === id);
     if (idx === -1) return;
-    reminders[idx].taken = !reminders[idx].taken;
+    reminders[idx].taken = !reminders[idx].taken;  // Toggle status
     Storage.set(STORAGE_KEYS.REMINDERS, reminders);
     this.render();
     Utils.showToast(reminders[idx].taken ? 'Marked as taken ✅' : 'Marked as untaken', 'info');
   },
 
+  /**
+   * Delete a reminder after confirmation
+   * @param {string} id - Reminder ID
+   */
   delete(id) {
-    if (!confirm('Delete this reminder?')) return;
+    if (!confirm('Delete this reminder?')) return;  // Require user confirmation
     const reminders = getReminders().filter(r => r.id !== id);
     Storage.set(STORAGE_KEYS.REMINDERS, reminders);
     this.render();
-    this.updateCount();
+    this.updateCount();  // Update dashboard badge count
     Utils.showToast('Reminder deleted', 'info');
   },
 
+  /**
+   * Update reminder count badge on the dashboard
+   */
   updateCount() {
     const el = document.querySelector('#reminderCount');
     if (el) el.textContent = getReminders().length;

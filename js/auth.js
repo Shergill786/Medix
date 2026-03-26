@@ -12,8 +12,19 @@ const DEMO_USERS = [
 ];
 
 /* ── Auth Manager ── */
+/**
+ * Authentication and session management
+ * Handles user registration, login, logout, and session validation
+ */
 const Auth = {
-  /* Signup flow */
+  /**
+   * Register a new user account
+   * @param {string} email - User email address
+   * @param {string} username - Unique username
+   * @param {string} password - Plaintext password (ideally would be hashed)
+   * @param {string} fullname - User's full name
+   * @returns {Object} {ok: boolean, user?: Object, error?: string}
+   */
   signup(email, username, password, fullname) {
     const registeredUsers = Storage.get(STORAGE_KEYS.REGISTERED_USERS) || [];
     
@@ -42,7 +53,14 @@ const Auth = {
     return { ok: true, user: newUser };
   },
 
-  /* Login flow */
+  /**
+   * Authenticate user and create session
+   * Checks registered users first, falls back to demo users for testing
+   * @param {string} email - Email or username
+   * @param {string} password - User password
+   * @param {boolean} remember - Whether to extend session to 30 days
+   * @returns {Object} {ok: boolean, user?: Object, error?: string}
+   */
   login(email, password, remember) {
     // Check registered users first
     const registeredUsers = Storage.get(STORAGE_KEYS.REGISTERED_USERS) || [];
@@ -93,14 +111,20 @@ const Auth = {
     return { ok: true, user: session.user };
   },
 
-  /* Logout */
+  /**
+   * Clear authentication session and redirect to login
+   */
   logout() {
     Storage.remove(STORAGE_KEYS.AUTH);
     Storage.remove(STORAGE_KEYS.USER);
     window.location.href = '../pages/login.html';
   },
 
-  /* Check session validity */
+  /**
+   * Verify if user has a valid active session
+   * Checks both existence and expiration of auth token
+   * @returns {boolean} true if session is valid and not expired
+   */
   isLoggedIn() {
     const session = Storage.get(STORAGE_KEYS.AUTH);
     if (!session) return false;
@@ -111,14 +135,20 @@ const Auth = {
     return true;
   },
 
-  /* Redirect if not authenticated */
+  /**
+   * Authentication guard - redirect to login if not authenticated
+   * Called at the start of protected pages
+   */
   guard() {
     if (!this.isLoggedIn()) {
       window.location.href = 'login.html';
     }
   },
 
-  /* Current user */
+  /**
+   * Get currently logged-in user data
+   * @returns {Object|null} User object or null if not logged in
+   */
   currentUser() {
     return Storage.get(STORAGE_KEYS.USER);
   },
@@ -196,17 +226,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  /* Demo login fill */
-  const demoBtn = document.getElementById('demoLoginBtn');
-  if (demoBtn) {
-    demoBtn.addEventListener('click', () => {
-      emailInput.value    = 'demo@medix.com';
-      passwordInput.value = 'Demo@1234';
-      clearError(emailInput);
-      clearError(passwordInput);
-      Utils.showToast('Demo credentials filled in!', 'info');
-    });
-  }
 
   /* ── Helpers ── */
   function validateEmail(input) {

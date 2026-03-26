@@ -15,6 +15,10 @@ document.addEventListener('DOMContentLoaded', function() {
 // ─────────────────────────────────────
 // Navigation / Section Switching
 // ─────────────────────────────────────
+/**
+ * Initialize settings navigation tabs
+ * Switches between different settings sections (Account, Notifications, etc.)
+ */
 function initNavigation() {
   const navItems = document.querySelectorAll('.settings-nav-item');
   
@@ -41,6 +45,10 @@ function initNavigation() {
 // ─────────────────────────────────────
 // Toggle Switches
 // ─────────────────────────────────────
+/**
+ * Initialize toggle switch controls
+ * Loads saved toggle states and persists changes to localStorage
+ */
 function initToggles() {
   const toggleInputs = document.querySelectorAll('.toggle-switch input[type="checkbox"]');
   
@@ -69,6 +77,10 @@ function initToggles() {
 // ─────────────────────────────────────
 // Form Handlers
 // ─────────────────────────────────────
+/**
+ * Initialize form field handlers for account settings
+ * Loads saved values and auto-saves on blur
+ */
 function initFormHandlers() {
   // Account section
   const accountInputs = [
@@ -93,7 +105,11 @@ function initFormHandlers() {
   });
 }
 
-// Form submission handler
+/**
+ * Save changes for a specific settings section
+ * Validates form data and saves to localStorage
+ * @param {string} section - Settings section ID (e.g., 'account', 'notifications')
+ */
 function saveChanges(section) {
   // Collect all form data from the section
   const sectionElement = document.getElementById(section);
@@ -172,6 +188,10 @@ function saveChanges(section) {
 // ─────────────────────────────────────
 // Appearance Settings
 // ─────────────────────────────────────
+/**
+ * Initialize theme and appearance customization
+ * Handles dark mode, light mode, and font size preferences
+ */
 function initAppearanceSettings() {
   const themeInputs = document.querySelectorAll('input[name="theme"]');
   const fontSizeInput = document.getElementById('font-size');
@@ -339,35 +359,4 @@ function loadSettingsFromStorage() {
       }
     }
   });
-}
-
-// Export data for backup
-function exportSettings() {
-  const settings = { ...localStorage };
-  const dataStr = JSON.stringify(settings, null, 2);
-  const dataBlob = new Blob([dataStr], { type: 'application/json' });
-  const url = URL.createObjectURL(dataBlob);
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = 'medix-settings-backup.json';
-  link.click();
-  showNotification('✓ Settings exported', 'success');
-}
-
-// Import settings from file
-function importSettings(file) {
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    try {
-      const settings = JSON.parse(e.target.result);
-      Object.keys(settings).forEach(key => {
-        localStorage.setItem(key, settings[key]);
-      });
-      showNotification('✓ Settings imported successfully', 'success');
-      location.reload();
-    } catch (error) {
-      showNotification('✗ Failed to import settings', 'error');
-    }
-  };
-  reader.readAsText(file);
 }

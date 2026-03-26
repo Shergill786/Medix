@@ -5,111 +5,126 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap');
 
-/* ── CSS Custom Properties ── */
+/* ─────────────────────────────────────────────
+   CSS CUSTOM PROPERTIES (CSS Variables)
+   Design tokens defining colors, spacing, shadows, etc.
+   ───────────────────────────────────────────── */
 :root {
   /* Color Palette */
-  --primary:       #1a6fff;
-  --primary-dark:  #0f50cc;
-  --primary-light: #e8f0ff;
-  --accent:        #00c896;
-  --accent-dark:   #00a87d;
-  --accent-light:  #e0faf4;
-  --danger:        #ff4757;
-  --danger-light:  #fff0f1;
-  --warning:       #ffa502;
-  --warning-light: #fff8ed;
+  --primary:       #1a6fff;        /* Primary brand blue */
+  --primary-dark:  #0f50cc;        /* Darker shade for hover states */
+  --primary-light: #e8f0ff;        /* Light background tint */
+  --accent:        #00c896;        /* Accent green for positive actions */
+  --accent-dark:   #00a87d;        /* Darker accent for hover effects */
+  --accent-light:  #e0faf4;        /* Light accent background */
+  --danger:        #ff4757;        /* Red for errors and deletions */
+  --danger-light:  #fff0f1;        /* Light danger background */
+  --warning:       #ffa502;        /* Orange for warnings */
+  --warning-light: #fff8ed;        /* Light warning background */
 
-  /* Neutrals */
-  --white:         #ffffff;
-  --bg:            #f5f7fc;
-  --bg-card:       #ffffff;
-  --border:        #e8ecf4;
-  --text-primary:  #0d1b3e;
-  --text-secondary:#5a6a8a;
-  --text-muted:    #9aa5bf;
+  /* Neutrals - Grayscale */
+  --white:         #ffffff;        /* Pure white */
+  --bg:            #f5f7fc;        /* Default page background */
+  --bg-card:       #ffffff;        /* Card/panel background */
+  --border:        #e8ecf4;        /* Border color for subtle dividers */
+  --text-primary:  #0d1b3e;        /* Primary text color */
+  --text-secondary:#5a6a8a;        /* Secondary text color */
+  --text-muted:    #9aa5bf;        /* Disabled/placeholder text */
 
-  /* Gradients */
+  /* Gradients - Multi-color transitions */
   --grad-primary:  linear-gradient(135deg, #1a6fff 0%, #0044cc 100%);
   --grad-accent:   linear-gradient(135deg, #00c896 0%, #00a87d 100%);
   --grad-hero:     linear-gradient(145deg, #0d1b3e 0%, #1a3a8f 60%, #1a6fff 100%);
   --grad-card:     linear-gradient(145deg, #ffffff 0%, #f5f7fc 100%);
 
-  /* Shadows */
+  /* Shadows - Depth and elevation */
   --shadow-xs:   0 1px 3px rgba(13,27,62,0.06);
   --shadow-sm:   0 2px 8px rgba(13,27,62,0.08);
   --shadow-md:   0 4px 20px rgba(13,27,62,0.10);
   --shadow-lg:   0 8px 40px rgba(13,27,62,0.12);
   --shadow-xl:   0 16px 64px rgba(13,27,62,0.16);
-  --shadow-blue: 0 8px 24px rgba(26,111,255,0.30);
-  --shadow-green:0 8px 24px rgba(0,200,150,0.28);
+  --shadow-blue: 0 8px 24px rgba(26,111,255,0.30);  /* Blue glow */
+  --shadow-green:0 8px 24px rgba(0,200,150,0.28);   /* Green glow */
 
-  /* Typography */
-  --font-display: 'Sora', sans-serif;
-  --font-body:    'DM Sans', sans-serif;
+  /* Typography - Font families */
+  --font-display: 'Sora', sans-serif;      /* Headlines and large text */
+  --font-body:    'DM Sans', sans-serif;   /* Body and UI text */
 
-  /* Spacing */
-  --space-xs:  4px;
-  --space-sm:  8px;
-  --space-md:  16px;
-  --space-lg:  24px;
-  --space-xl:  32px;
-  --space-2xl: 48px;
-  --space-3xl: 64px;
+  /* Spacing - Consistent 8px base unit */
+  --space-xs:  4px;    /* Single pixel spacing */
+  --space-sm:  8px;    /* Small padding/margin */
+  --space-md:  16px;   /* Medium padding/margin */
+  --space-lg:  24px;   /* Large padding/margin */
+  --space-xl:  32px;   /* Extra large spacing */
+  --space-2xl: 48px;   /* Double extra large */
+  --space-3xl: 64px;   /* Triple extra large */
 
-  /* Border Radius */
-  --radius-sm:   8px;
-  --radius-md:   12px;
-  --radius-lg:   16px;
-  --radius-xl:   24px;
-  --radius-2xl:  32px;
-  --radius-full: 9999px;
+  /* Border Radius - Rounded corners */
+  --radius-sm:   8px;       /* Subtle rounding */
+  --radius-md:   12px;      /* Medium rounding */
+  --radius-lg:   16px;      /* Large rounding */
+  --radius-xl:   24px;      /* Extra large rounding */
+  --radius-2xl:  32px;      /* Double extra large */
+  --radius-full: 9999px;    /* Fully rounded (pills) */
 
-  /* Transitions */
-  --transition-fast:   all 0.15s ease;
-  --transition-base:   all 0.25s ease;
-  --transition-slow:   all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-spring: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* Transitions - Animation timing */
+  --transition-fast:   all 0.15s ease;                              /* Quick feedback */
+  --transition-base:   all 0.25s ease;                              /* Standard duration */
+  --transition-slow:   all 0.4s cubic-bezier(0.4, 0, 0.2, 1);      /* Slow ease */
+  --transition-spring: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); /* Bouncy effect */
 
-  /* Layout */
-  --nav-h: 72px;
-  --sidebar-w: 260px;
-  --max-w: 1200px;
+  /* Layout - Key dimensions */
+  --nav-h: 72px;        /* Navigation bar height */
+  --sidebar-w: 260px;   /* Sidebar width */
+  --max-w: 1200px;      /* Maximum container width */
 }
 
-/* ── Reset & Base ── */
+/* ─────────────────────────────────────────────
+   RESET & BASE STYLES
+   Normalize and establish baseline styles
+   ───────────────────────────────────────────── */
 *, *::before, *::after {
-  box-sizing: border-box;
+  box-sizing: border-box;  /* Include padding/border in width/height */
   margin: 0;
   padding: 0;
 }
 
 html {
-  scroll-behavior: smooth;
-  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;            /* Smooth scrolling for anchor links */
+  -webkit-text-size-adjust: 100%;     /* Prevent font scaling on mobile */
 }
 
 body {
   font-family: var(--font-body);
   font-size: 15px;
-  line-height: 1.6;
+  line-height: 1.6;                          /* Readable line spacing */
   color: var(--text-primary);
   background: var(--bg);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;       /* Smooth fonts on webkit browsers */
+  -moz-osx-font-smoothing: grayscale;        /* Smooth fonts on Firefox */
   min-height: 100vh;
 }
 
+/* Clean up default element styling */
 img { max-width: 100%; display: block; }
+/* Remove default link underline */
 a { color: inherit; text-decoration: none; }
+/* Remove default list bullets */
 ul { list-style: none; }
+/* Style buttons consistently */
 button { cursor: pointer; font-family: var(--font-body); border: none; background: none; }
+/* Ensure form inputs use site font */
 input, select, textarea { font-family: var(--font-body); }
 
-/* ── Typography ── */
+/* ─────────────────────────────────────────────
+   TYPOGRAPHY
+   Heading and text styles
+   ───────────────────────────────────────────── */
+/* Heading defaults */
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-display);
+  font-family: var(--font-display);  /* Use display font for headings */
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 1.2;                  /* Tighter spacing for headlines */
   color: var(--text-primary);
 }
 
@@ -136,13 +151,17 @@ h1, h2, h3, h4, h5, h6 {
 .text-green     { color: var(--accent); }
 .text-danger    { color: var(--danger); }
 
-/* ── Layout Utilities ── */
+/* ─────────────────────────────────────────────
+   LAYOUT UTILITIES
+   Flexbox and grid helper classes
+   ───────────────────────────────────────────── */
 .container {
   max-width: var(--max-w);
-  margin: 0 auto;
-  padding: 0 var(--space-lg);
+  margin: 0 auto;              /* Center horizontally */
+  padding: 0 var(--space-lg);  /* Responsive padding */
 }
 
+/* Flexbox utilities */
 .flex        { display: flex; }
 .flex-col    { flex-direction: column; }
 .items-center { align-items: center; }

@@ -1,4 +1,9 @@
 /* Profile Specific Styles */
+
+/**
+ * Profile header - Hero section with gradient background
+ * Displays user's background area with accent color
+ */
 .profile-header {
   background: var(--grad-hero);
   color: white;
@@ -7,6 +12,10 @@
   overflow: hidden;
 }
 
+/**
+ * Profile card - White container for user information
+ * Uses subtle shadow and border for depth
+ */
 .profile-card {
   background: var(--bg-card);
   border-radius: var(--radius-lg);
@@ -16,6 +25,9 @@
   box-shadow: var(--shadow-sm);
 }
 
+/**
+ * Profile information layout - Grid for avatar and details
+ */
 .profile-info {
   display: grid;
   grid-template-columns: auto 1fr;
@@ -23,6 +35,10 @@
   align-items: start;
 }
 
+/**
+ * Profile avatar - Large circular badge with initials
+ * Displays user's initials in gradient circle
+ */
 .profile-avatar {
   width: 120px;
   height: 120px;
@@ -32,10 +48,11 @@
   align-items: center;
   justify-content: center;
   font-size: 3.5rem;
-  box-shadow: var(--shadow-lg);
-  border: 4px solid white;
+  box-shadow: var(--shadow-lg);  /* Elevated shadow for depth */
+  border: 4px solid white;       /* White ring around avatar */
 }
 
+/* Profile details section */
 .profile-details h2 {
   margin-bottom: var(--space-sm);
   color: var(--text-primary);
@@ -47,6 +64,10 @@
   font-size: 0.95rem;
 }
 
+/**
+ * Profile badge - User role/status pill
+ * Displays in accent color with side padding
+ */
 .profile-badge {
   display: inline-flex;
   align-items: center;
@@ -60,6 +81,10 @@
   margin-top: var(--space-sm);
 }
 
+/**
+ * Info grid - Multi-column info items
+ * Responsive layout for user statistics
+ */
 .info-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -67,18 +92,22 @@
   margin-top: var(--space-lg);
 }
 
+/**
+ * Single info item - Labeled value box
+ * Shows data like blood type, allergies, etc.
+ */
 .info-item {
   background: var(--bg);
   padding: var(--space-md);
   border-radius: var(--radius-md);
-  border-left: 4px solid var(--primary);
+  border-left: 4px solid var(--primary);  /* Left accent border */
 }
 
 .info-item-label {
   font-size: 0.8125rem;
   color: var(--text-muted);
   font-weight: 600;
-  text-transform: uppercase;
+  text-transform: uppercase;              /* Capitalized labels */
   letter-spacing: 0.01em;
   margin-bottom: var(--space-xs);
 }
@@ -89,6 +118,10 @@
   color: var(--text-primary);
 }
 
+/**
+ * Section title - Page section header
+ * Large bold text with optional icon
+ */
 .section-title {
   font-size: 1.5rem;
   font-weight: 700;
@@ -99,14 +132,21 @@
   gap: var(--space-md);
 }
 
+/**
+ * Tabs navigation - Horizontal tab switcher
+ * Bottom border highlight for active tab
+ */
 .tabs {
   display: flex;
   gap: var(--space-md);
-  border-bottom: 2px solid var(--border);
+  border-bottom: 2px solid var(--border);  /* Divider line */
   margin-bottom: var(--space-xl);
-  overflow-x: auto;
+  overflow-x: auto;                        /* Horizontal scroll on mobile */
 }
 
+/**
+ * Individual tab button
+ */
 .tab {
   padding: 12px 16px;
   border: none;
@@ -114,20 +154,24 @@
   cursor: pointer;
   font-weight: 600;
   color: var(--text-secondary);
-  border-bottom: 3px solid transparent;
+  border-bottom: 3px solid transparent;    /* Space for active indicator */
   transition: var(--transition-base);
-  white-space: nowrap;
+  white-space: nowrap;                     /* Prevent tab text wrapping */
 }
 
 .tab:hover {
-  color: var(--primary);
+  color: var(--primary);  /* Highlight on hover */
 }
 
 .tab.active {
   color: var(--primary);
-  border-bottom-color: var(--primary);
+  border-bottom-color: var(--primary);  /* Blue underline for active tab */
 }
 
+/**
+ * Appointment item - Card for single appointment
+ * Shows doctor info, date, and status
+ */
 .appointment-item {
   background: var(--bg-card);
   border: 1px solid var(--border);
@@ -140,11 +184,15 @@
   transition: var(--transition-base);
 }
 
+/* Hover effect - subtle border and shadow change */
 .appointment-item:hover {
   border-color: var(--primary);
   box-shadow: var(--shadow-sm);
 }
 
+/**
+ * Appointment time badge - Date display
+ */
 .appointment-time {
   background: var(--primary-light);
   color: var(--primary);

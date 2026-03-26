@@ -3,26 +3,28 @@
    components.css — Page-Specific Components
    ============================================ */
 
-/* ══════════════════════════════════════════
-   LOGIN PAGE
-══════════════════════════════════════════ */
+/* ─────────────────────────────────────────────
+   LOGIN & AUTH PAGE
+   Login form, signup form, and authentication UI
+   ───────────────────────────────────────────── */
 .auth-page {
   min-height: 100vh;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;  /* Split layout: visual left, form right */
 }
 
 .auth-visual {
-  background: var(--grad-hero);
+  background: var(--grad-hero);     /* Hero gradient background */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   padding: var(--space-3xl);
   position: relative;
-  overflow: hidden;
+  overflow: hidden;                 /* Clip decorative background shapes */
 }
 
+/* Decorative blurred circles in background */
 .auth-visual::before {
   content: '';
   position: absolute;
@@ -30,7 +32,7 @@
   height: 500px;
   background: rgba(255,255,255,0.05);
   border-radius: 50%;
-  top: -150px;
+  top: -150px;                      /* Positioned outside viewport */
   right: -150px;
 }
 
@@ -39,7 +41,7 @@
   position: absolute;
   width: 300px;
   height: 300px;
-  background: rgba(26,111,255,0.3);
+  background: rgba(26,111,255,0.3);  /* Blue glow effect */
   border-radius: 50%;
   bottom: -100px;
   left: -100px;
@@ -81,6 +83,7 @@
   margin-bottom: var(--space-lg);
 }
 
+/* Highlight accent color in tagline */
 .auth-tagline span { color: #7dd3fc; }
 
 .auth-features {
@@ -89,6 +92,7 @@
   gap: var(--space-md);
 }
 
+/*Feature list item in auth visual */
 .auth-feature {
   display: flex;
   align-items: center;
@@ -100,12 +104,12 @@
 .auth-feature-icon {
   width: 36px;
   height: 36px;
-  background: rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.15);  /* Frosted glass effect */
   border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
+  flex-shrink: 0;                       /* Prevent icon from shrinking */
   font-size: 1rem;
 }
 
@@ -116,12 +120,12 @@
   align-items: center;
   padding: var(--space-3xl) var(--space-2xl);
   background: var(--white);
-  overflow-y: auto;
+  overflow-y: auto;  /* Allow vertical scroll if content overflows */
 }
 
 .auth-form-wrap {
   width: 100%;
-  max-width: 420px;
+  max-width: 420px;  /* Constrain form width */
 }
 
 .auth-welcome {
@@ -134,6 +138,7 @@
   margin-bottom: var(--space-sm);
 }
 
+/* Subtitle under welcome heading */
 .auth-welcome p { color: var(--text-secondary); }
 
 .remember-row {
@@ -143,6 +148,7 @@
   margin-bottom: var(--space-lg);
 }
 
+/* Checkbox label styling */
 .checkbox-label {
   display: flex;
   align-items: center;
